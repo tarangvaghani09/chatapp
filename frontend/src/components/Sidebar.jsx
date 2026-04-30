@@ -57,7 +57,7 @@
 //         return;
 //       }
 //       try {
-//         const resp = await fetch(`http://localhost:5000/api/registerUser?username=${stored}`);
+//         const resp = await fetch(`${API_BASE}/api/registerUser?username=${stored}`);
 //         if (!resp.ok) throw new Error("Failed to fetch user");
 //         const data = await resp.json();
 //         setLoggedInUser(data.user);
@@ -231,7 +231,7 @@
 //                 </div>
 //               </div>
 //               <img
-//                 src={loggedInUser.profilePicture ? `http://localhost:5000/${loggedInUser.profilePicture}` : "/default-profile.png"}
+//                 src={loggedInUser.profilePicture ? `${API_BASE}/${loggedInUser.profilePicture}` : "/default-profile.png"}
 //                 alt="Profile"
 //                 className="h-10 w-10 rounded-full mb-2 object-cover"
 //               />
@@ -347,7 +347,7 @@
 //       try {
 //         const stored = localStorage.getItem("username");
 //         if (!stored) return;
-//         const resp = await fetch(`http://localhost:5000/api/registerUser?username=${stored}`);
+//         const resp = await fetch(`${API_BASE}/api/registerUser?username=${stored}`);
 //         if (resp.ok) {
 //           const data = await resp.json();
 //           setLoggedInUser(data.user);
@@ -559,6 +559,7 @@ import { PiChatCircleSlashFill } from "react-icons/pi";
 import { TfiStatsUp } from "react-icons/tfi";
 import { LuContact } from "react-icons/lu";
 import { GrUserAdmin } from "react-icons/gr";
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 const Sidebar = () => {
   const [loggedInUser, setLoggedInUser] = useState(null);
@@ -581,7 +582,7 @@ const Sidebar = () => {
       try {
         const storedUsername = localStorage.getItem("username");
         const response = await fetch(
-          `http://localhost:5000/api/registerUser?username=${storedUsername}`
+          `${API_BASE}/api/registerUser?username=${storedUsername}`
         );
         if (!response.ok)
           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -806,7 +807,7 @@ const Sidebar = () => {
               </div>
               <img
                 onClick={handleProfileImageClick}
-                src={`http://localhost:5000/${loggedInUser.profilePicture}`}
+                src={`${API_BASE}/${loggedInUser.profilePicture}`}
                 alt="Profile"
                 className="h-10 w-10 rounded-full mb-2 cursor-pointer object-cover"
                 title="Profile"
@@ -839,3 +840,4 @@ const Sidebar = () => {
 };
 
 export default Sidebar;
+

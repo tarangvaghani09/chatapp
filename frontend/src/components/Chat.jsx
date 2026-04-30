@@ -16,9 +16,10 @@ import { LuSendHorizontal } from "react-icons/lu";
 import { AiOutlineClose } from "react-icons/ai";
 import { RiArrowDownSLine } from "react-icons/ri";
 import ShareContactsModal from "./ShareContactsModal";
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 
-const socket = io("http://localhost:5000");
+const socket = io(API_BASE + "");
 
 const Chat = ({ selectedUser, onToggleUserList }) => {
   const [message, setMessage] = useState("");
@@ -107,7 +108,7 @@ const Chat = ({ selectedUser, onToggleUserList }) => {
   useEffect(() => {
     const fetchBlockStatus = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/contacts/${selectedUser.phone}`);
+        const res = await fetch(`${API_BASE}/api/contacts/${selectedUser.phone}`);
         const data = await res.json();
         setIsBlocked(data.isBlocked);
       } catch (error) {
@@ -124,7 +125,7 @@ const Chat = ({ selectedUser, onToggleUserList }) => {
     const fetchBlockStatus = async () => {
       try {
         // Fetch all contacts and unknown contacts for the owner
-        const res = await fetch(`http://localhost:5000/api/contacts?owner=${localStorage.getItem("username")}`);
+        const res = await fetch(`${API_BASE}/api/contacts?owner=${localStorage.getItem("username")}`);
         const data = await res.json();
 
         // Find the selected user in either contacts or unknownContacts
@@ -147,7 +148,7 @@ const Chat = ({ selectedUser, onToggleUserList }) => {
 
   const handleBlockUser = async () => {
     try {
-      await fetch("http://localhost:5000/api/block", {
+      await fetch(API_BASE + "/api/block", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -165,7 +166,7 @@ const Chat = ({ selectedUser, onToggleUserList }) => {
 
   const handleUnblockUser = async () => {
     try {
-      await fetch("http://localhost:5000/api/unblock", {
+      await fetch(API_BASE + "/api/unblock", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -339,7 +340,7 @@ const Chat = ({ selectedUser, onToggleUserList }) => {
         setIsPaying(false);
         return;
       }
-      const { data } = await axios.post("http://localhost:5000/api/payment", {
+      const { data } = await axios.post(API_BASE + "/api/payment", {
         amount: 100,
       });
       const options = {
@@ -449,7 +450,7 @@ const Chat = ({ selectedUser, onToggleUserList }) => {
     let logoBase64 = null;
     try {
       const logoFilename = "deepchat_logo.jpg";
-      logoBase64 = await getBase64FromURL(`http://localhost:5000/uploads/${logoFilename}`);
+      logoBase64 = await getBase64FromURL(`${API_BASE}/uploads/${logoFilename}`);
     } catch (err) {
       logoBase64 = null;
     }
@@ -560,7 +561,7 @@ const Chat = ({ selectedUser, onToggleUserList }) => {
       // Draw image if present (from uploads folder)
       if (chat.image && !isInvalidFile(chat.image)) {
         try {
-          const base64 = await getBase64FromURL(`http://localhost:5000/uploads/${chat.image}`);
+          const base64 = await getBase64FromURL(`${API_BASE}/uploads/${chat.image}`);
           doc.addImage(base64, "JPEG", xPos, yOffset, 80, 60);
           yOffset += 70;
         } catch {
@@ -613,7 +614,7 @@ const Chat = ({ selectedUser, onToggleUserList }) => {
     if (newImage) formData.append("profilePicture", newImage);
     if (removeImage) formData.append("removeProfilePicture", "true");
     try {
-      const response = await fetch("http://localhost:5000/api/updateprofile", {
+      const response = await fetch(API_BASE + "/api/updateprofile", {
         method: "PUT",
         body: formData,
       });
@@ -793,14 +794,14 @@ const Chat = ({ selectedUser, onToggleUserList }) => {
     try {
       if (editingMessage) {
         // Editing an existing message
-        await fetch(`http://localhost:5000/api/editChat/${editingMessage}`, {
+        await fetch(`${API_BASE}/api/editChat/${editingMessage}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ message }),
         });
       } else {
         // Sending new message
-        const response = await fetch("http://localhost:5000/api/chats", {
+        const response = await fetch(API_BASE + "/api/chats", {
           method: "POST",
           body: formData,
         });
@@ -831,7 +832,7 @@ const Chat = ({ selectedUser, onToggleUserList }) => {
   //   // formData.append("receiver", selectedUser.phone);
   //   // if (selectedImage) formData.append("image", selectedImage);
   //   // try {
-  //   //   const response = await fetch("http://localhost:5000/api/chats", {
+  //   //   const response = await fetch(API_BASE + "/api/chats", {
   //   //     method: "POST",
   //   //     body: formData,
   //   //   });
@@ -920,7 +921,7 @@ const Chat = ({ selectedUser, onToggleUserList }) => {
           <div className="mt-2">
             {isSender ? (
               <a
-                href={`http://localhost:5000/${chat.image}`}
+                href={`${API_BASE}/${chat.image}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex justify-end items-center mt-1 pr-2 gap-2 text-blue-600 underline"
@@ -929,7 +930,7 @@ const Chat = ({ selectedUser, onToggleUserList }) => {
               </a>
             ) : (
               <a
-                href={`http://localhost:5000/download/${chat.image}`}
+                href={`${API_BASE}/download/${chat.image}`}
                 download
                 rel="noopener noreferrer"
                 className="flex justify-end items-center pt-1 pr-2 gap-2 text-blue-600 underline"
@@ -942,24 +943,24 @@ const Chat = ({ selectedUser, onToggleUserList }) => {
         );
       } else if (['mp4', 'webm', 'ogg'].includes(fileExtension)) {
         return (
-          <video src={`http://localhost:5000/${chat.image}`} controls className="max-w-full max-h-52 mt-2" />
+          <video src={`${API_BASE}/${chat.image}`} controls className="max-w-full max-h-52 mt-2" />
         );
       } else if (['mp3', 'wav', 'ogg'].includes(fileExtension)) {
         return (
-          <audio src={`http://localhost:5000/${chat.image}`} controls className="mt-2" />
+          <audio src={`${API_BASE}/${chat.image}`} controls className="mt-2" />
         );
       } else {
         return (
           <>
             <img
-              src={`http://localhost:5000/${chat.image}`}
+              src={`${API_BASE}/${chat.image}`}
               alt="Chat"
               className="max-w-full max-h-52 cursor-pointer mt-2 object-cover"
-              onClick={() => handleImageClick(`http://localhost:5000/${chat.image}`)}
+              onClick={() => handleImageClick(`${API_BASE}/${chat.image}`)}
             />
             {isSender ? (
               <a
-                href={`http://localhost:5000/${chat.image}`}
+                href={`${API_BASE}/${chat.image}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex justify-end items-center pt-1 pr-2 gap-2 text-blue-600 underline"
@@ -968,7 +969,7 @@ const Chat = ({ selectedUser, onToggleUserList }) => {
               </a>
             ) : (
               <a
-                href={`http://localhost:5000/download/${chat.image}`}
+                href={`${API_BASE}/download/${chat.image}`}
                 download
                 className="flex justify-end items-center pt-1 pr-2 gap-2 text-blue-600 underline"
               >
@@ -1032,7 +1033,7 @@ const Chat = ({ selectedUser, onToggleUserList }) => {
       <div className="flex flex-row justify-start items-center bg-white pb-1 pt-1 sm:pt-2 mt-[-5px] sm:pl-5 pl-3 absolute w-full sm:w-screen z-10 max-[668px]:py-2">
         <img
           onClick={handleNavbarClick}
-          src={`http://localhost:5000/${selectedUser.profilePicture}`}
+          src={`${API_BASE}/${selectedUser.profilePicture}`}
           alt="Profile"
           className="h-10 w-10 mr-3 sm:mr-5 rounded-full object-cover cursor-pointer max-[668px]:h-8 max-[668px]:w-8 max-[788px]:ml-5"
         />
@@ -1189,7 +1190,7 @@ const Chat = ({ selectedUser, onToggleUserList }) => {
                         try {
                           if (chat.image) {
                             // fetch the actual image blob
-                            const resp = await fetch(`http://localhost:5000/${chat.image}`);
+                            const resp = await fetch(`${API_BASE}/${chat.image}`);
                             const blob = await resp.blob();
                             // write it to the clipboard
                             await navigator.clipboard.write([
@@ -1482,7 +1483,7 @@ const Chat = ({ selectedUser, onToggleUserList }) => {
       )}
       {showFullView && (
         <Update
-          imageUrl={`http://localhost:5000/${selectedUser.profilePicture}`}
+          imageUrl={`${API_BASE}/${selectedUser.profilePicture}`}
           username={selectedUser.contactUsername ? selectedUser.contactUsername : selectedUser.username}
           phone={selectedUser.phone}
           closeOverlay={closeOverlayMainImage}
@@ -1500,6 +1501,7 @@ const Chat = ({ selectedUser, onToggleUserList }) => {
 };
 
 export default Chat;
+
 
 
 

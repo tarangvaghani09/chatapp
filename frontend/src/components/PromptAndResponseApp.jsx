@@ -144,7 +144,7 @@
 //   // Gemini API key from .env
 //   const apiKey = "AIzaSyCTKaNYTvV7Ky7OMA21pXTq3j6hkcd779A";
 //   const MODEL_NAME = "gemini-1.5-flash";
-//   const backendUrl =  "http://localhost:5000/api/aipromptchat";
+//   const backendUrl =  API_BASE + "/api/aipromptchat";
 
 //   // Load chat sessions from MongoDB
 //   useEffect(() => {
@@ -446,7 +446,7 @@
 //   // Gemini API key from .env
 //   const apiKey = "AIzaSyBSVdL0suOurQXR6CgAvNhLSaQFn1n3ogQ";
 //   const MODEL_NAME = "gemini-1.5-pro";
-//   const backendUrl =  "http://localhost:5000/api/aipromptchat";
+//   const backendUrl =  API_BASE + "/api/aipromptchat";
 
 //   "https://generativelanguage.googleapis.com/v1beta/models",
 
@@ -743,6 +743,7 @@ import ReactLoading from 'react-loading';
 import { FaArrowRight, FaPlus } from "react-icons/fa";
 import { BsPauseCircleFill } from "react-icons/bs";
 import axios from 'axios';
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 const PromptAndResponseApp = () => {
   const dispatch = useDispatch();
@@ -758,7 +759,7 @@ const PromptAndResponseApp = () => {
   // Gemini API key from .env
   const apiKey = "AIzaSyBSVdL0suOurQXR6CgAvNhLSaQFn1n3ogQ";
   const MODEL_NAME = "gemini-2.5-flash"; // Updated to stable model
-  const backendUrl = "http://localhost:5000/api/aipromptchat";
+  const backendUrl = API_BASE + "/api/aipromptchat";
 
   // Load chat sessions from MongoDB
   useEffect(() => {

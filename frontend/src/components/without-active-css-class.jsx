@@ -7,8 +7,9 @@ import { toggleAiChat } from "../actions/chatAction";
 import { SiDeepgram } from "react-icons/si";
 import { IoCloseOutline } from "react-icons/io5";
 import io from "socket.io-client";
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
-const socket = io("http://localhost:5000");
+const socket = io(API_BASE + "");
 
 const UserList = ({ onSelectUser }) => {
   const [users, setUsers] = useState([]);
@@ -45,7 +46,7 @@ const UserList = ({ onSelectUser }) => {
     const fetchLoggedInUser = async () => {
       try {
         const storedUsername = localStorage.getItem("username");
-        const response = await fetch(`http://localhost:5000/api/registerUser?username=${storedUsername}`);
+        const response = await fetch(`${API_BASE}/api/registerUser?username=${storedUsername}`);
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
@@ -62,7 +63,7 @@ const UserList = ({ onSelectUser }) => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/register");
+        const response = await fetch(API_BASE + "/api/register");
         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
         const data = await response.json();
 
@@ -90,7 +91,7 @@ const UserList = ({ onSelectUser }) => {
 
       for (const user of users) {
         try {
-          const response = await fetch(`http://localhost:5000/api/latestmessage?user1=${storedUsername}&user2=${user.phone}`);
+          const response = await fetch(`${API_BASE}/api/latestmessage?user1=${storedUsername}&user2=${user.phone}`);
           if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
           const data = await response.json();
           latestMessages[user.phone] = data.message;
@@ -214,7 +215,7 @@ const UserList = ({ onSelectUser }) => {
         <div className="logged-in-user">
           <img
             onClick={handleProfileImageClick}
-            src={`http://localhost:5000/${loggedInUser.profilePicture}`}
+            src={`${API_BASE}/${loggedInUser.profilePicture}`}
             alt="Profile"
             style={{ height: "40px", width: "40px", marginLeft: "10px", marginRight: "20px", borderRadius: "50%" }}
           />
@@ -257,13 +258,13 @@ const UserList = ({ onSelectUser }) => {
               onClick={() => handleClick(user, index)}
             >
               <img
-                src={`http://localhost:5000/${user.profilePicture}`}
+                src={`${API_BASE}/${user.profilePicture}`}
                 alt="Profile"
                 style={{
                   height: "40px", width: "40px", marginRight: "20px", borderRadius: "50%",
                   objectFit: "cover",
                 }}
-                onClick={(e) => handleImageClick(e, `http://localhost:5000/${user.profilePicture}`)}
+                onClick={(e) => handleImageClick(e, `${API_BASE}/${user.profilePicture}`)}
               />
               <div className="user-info">
                 <p style={{

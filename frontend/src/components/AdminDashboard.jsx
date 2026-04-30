@@ -22,7 +22,7 @@
 //     const fetchStats = async () => {
 //       try {
 //         const token = localStorage.getItem("token");
-//         const res = await fetch("http://localhost:5000/api/admin-dashboard", {
+//         const res = await fetch(API_BASE + "/api/admin-dashboard", {
 //           headers: {
 //             Authorization: `Bearer ${token}`,
 //           },
@@ -166,7 +166,7 @@
 //     const fetchStats = async () => {
 //       try {
 //         const token = localStorage.getItem("token");
-//         const res = await fetch("http://localhost:5000/api/admin-dashboard", {
+//         const res = await fetch(API_BASE + "/api/admin-dashboard", {
 //           headers: {
 //             Authorization: `Bearer ${token}`,
 //           },
@@ -326,7 +326,7 @@
 //             const fetchStats = async () => {
 //                 try {
 //                     setLoading(true);
-//                     const res = await fetch("http://localhost:5000/api/admin-dashboard", {
+//                     const res = await fetch(API_BASE + "/api/admin-dashboard", {
 //                         headers: { Authorization: `Bearer ${token}` },
 //                     });
 //                     if (!res.ok) throw new Error("Failed to fetch stats");
@@ -347,7 +347,7 @@
 //         if (activeTab === "users") {
 //             const fetchUsers = async () => {
 //                 try {
-//                     const res = await fetch("http://localhost:5000/api/allUsers", {
+//                     const res = await fetch(API_BASE + "/api/allUsers", {
 //                         headers: { Authorization: `Bearer ${token}` },
 //                     });
 //                     if (!res.ok) throw new Error("Failed to fetch users");
@@ -380,7 +380,7 @@
 //         if (!confirmDelete) return;
 
 //         try {
-//             const res = await fetch(`http://localhost:5000/api/deleteUser/${userId}`, {
+//             const res = await fetch(`${API_BASE}/api/deleteUser/${userId}`, {
 //                 method: "DELETE",
 //                 headers: { Authorization: `Bearer ${token}` },
 //             });
@@ -507,7 +507,7 @@
 //                                                 <td className="px-4 py-2">{user.phone}</td>
 //                                                 <td className="px-4 py-2">
 //                                                     <img
-//                                                         src={`http://localhost:5000/${user.profilePicture}`}
+//                                                         src={`${API_BASE}/${user.profilePicture}`}
 //                                                         alt={user.username}
 //                                                         className="w-10 h-10 rounded-full mx-auto object-cover"
 //                                                     />
@@ -603,7 +603,7 @@
 //             const fetchStats = async () => {
 //                 setLoading(true);
 //                 try {
-//                     const res = await fetch("http://localhost:5000/api/admin-dashboard", {
+//                     const res = await fetch(API_BASE + "/api/admin-dashboard", {
 //                         headers: authHeaders(),
 //                     });
 
@@ -637,7 +637,7 @@
 //         if (activeTab === "users") {
 //             const fetchUsers = async () => {
 //                 try {
-//                     const res = await fetch("http://localhost:5000/api/allUsers", {
+//                     const res = await fetch(API_BASE + "/api/allUsers", {
 //                         headers: authHeaders(),
 //                     });
 
@@ -676,7 +676,7 @@
 //         if (!confirmDelete) return;
 
 //         try {
-//             const res = await fetch(`http://localhost:5000/api/deleteUser/${userId}`, {
+//             const res = await fetch(`${API_BASE}/api/deleteUser/${userId}`, {
 //                 method: "DELETE",
 //                 headers: authHeaders(),
 //             });
@@ -873,7 +873,7 @@
 //                                                         <td className="px-4 py-2">
 //                                                             {user.profilePicture ? (
 //                                                                 <img
-//                                                                     src={`http://localhost:5000/${user.profilePicture}`}
+//                                                                     src={`${API_BASE}/${user.profilePicture}`}
 //                                                                     alt={user.username}
 //                                                                     className="w-10 h-10 rounded-full mx-auto object-cover"
 //                                                                     onError={(e) => {
@@ -931,6 +931,7 @@ import { Pie } from "react-chartjs-2";
 import { FaChartPie, FaUsers, FaCommentDots, FaUserPlus, FaTable, FaInfoCircle } from "react-icons/fa";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import { useNavigate } from "react-router-dom";
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
@@ -986,7 +987,7 @@ function AdminDashboard() {
             const fetchStats = async () => {
                 setLoading(true);
                 try {
-                    const res = await fetch("http://localhost:5000/api/admin-dashboard", {
+                    const res = await fetch(API_BASE + "/api/admin-dashboard", {
                         headers: authHeaders(),
                     });
 
@@ -1020,7 +1021,7 @@ function AdminDashboard() {
         if (activeTab === "users") {
             const fetchUsers = async () => {
                 try {
-                    const res = await fetch("http://localhost:5000/api/allUsers", {
+                    const res = await fetch(API_BASE + "/api/allUsers", {
                         headers: authHeaders(),
                     });
 
@@ -1059,7 +1060,7 @@ function AdminDashboard() {
         if (!confirmDelete) return;
 
         try {
-            const res = await fetch(`http://localhost:5000/api/deleteUser/${userId}`, {
+            const res = await fetch(`${API_BASE}/api/deleteUser/${userId}`, {
                 method: "DELETE",
                 headers: authHeaders(),
             });
@@ -1116,7 +1117,7 @@ function AdminDashboard() {
         setDetailLoading(true);
         setDetailData(null);
         try {
-            const res = await fetch(`http://localhost:5000/api/userActivity/${user._id}`, {
+            const res = await fetch(`${API_BASE}/api/userActivity/${user._id}`, {
                 headers: authHeaders(),
             });
             if (await handleAuthError(res)) {
@@ -1286,7 +1287,7 @@ function AdminDashboard() {
                                                         <td className="px-4 py-2">
                                                             {user.profilePicture ? (
                                                                 <img
-                                                                    src={`http://localhost:5000/${user.profilePicture}`}
+                                                                    src={`${API_BASE}/${user.profilePicture}`}
                                                                     alt={user.username}
                                                                     className="w-10 h-10 rounded-full mx-auto object-cover"
                                                                     onError={(e) => {
@@ -1342,7 +1343,7 @@ function AdminDashboard() {
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                                     <div>
                                         <p><strong>Profile Picture:</strong></p>
-                                        <img src={detailData.user.profilePicture ? `http://localhost:5000/${detailData.user.profilePicture}` : "/default-avatar.png"} alt="profile" className="w-20 h-20 rounded-full object-cover" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/default-avatar.png' }} />
+                                        <img src={detailData.user.profilePicture ? `${API_BASE}/${detailData.user.profilePicture}` : "/default-avatar.png"} alt="profile" className="w-20 h-20 rounded-full object-cover" onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/default-avatar.png' }} />
                                         <p><strong>Phone:</strong> {detailData.user.phone}</p>
                                         <p><strong>Role:</strong> {detailData.user.role}</p>
                                         <p><strong>Created At:</strong> {new Date(detailData.user.createdAt).toLocaleString()}</p>

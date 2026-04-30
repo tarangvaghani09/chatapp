@@ -137,6 +137,7 @@ const login = async (req, res) => {
 
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 const Login = () => {
     const [phone, setPhone] = useState("");
@@ -146,7 +147,7 @@ const Login = () => {
 
     const sendOtp = async () => {
         try {
-            const response = await fetch("http://localhost:5000/api/send-otp", {
+            const response = await fetch(API_BASE + "/api/send-otp", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ phone }),
@@ -161,7 +162,7 @@ const Login = () => {
 
     const verifyOtp = async () => {
         try {
-            const response = await fetch("http://localhost:5000/api/verify-otp", {
+            const response = await fetch(API_BASE + "/api/verify-otp", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ phone, otp }),
@@ -231,7 +232,7 @@ localStorage.setItem("username", data.user.phone.slice(3));
 const sendOtp = async () => {
   try {
       const formattedPhone = formatPhoneNumber(phone);
-      const response = await fetch("http://localhost:5000/api/send-otp", {
+      const response = await fetch(API_BASE + "/api/send-otp", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ phone: formattedPhone }),
@@ -247,7 +248,7 @@ const sendOtp = async () => {
 const verifyOtp = async () => {
   try {
       const formattedPhone = formatPhoneNumber(phone);
-      const response = await fetch("http://localhost:5000/api/verify-otp", {
+      const response = await fetch(API_BASE + "/api/verify-otp", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ phone: formattedPhone, otp }),

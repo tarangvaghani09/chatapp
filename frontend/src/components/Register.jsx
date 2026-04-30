@@ -40,7 +40,7 @@
 //       formData.append('profilePicture', user.profilePicture);
 //       formData.append('password', user.password);
 
-//       const response = await fetch("http://localhost:5000/api/register", {
+//       const response = await fetch(API_BASE + "/api/register", {
 //         method: "POST",
 //         body: formData,
 //       });
@@ -266,7 +266,7 @@
 //       formData.append('profilePicture', user.profilePicture);
 //       formData.append('password', user.password);
 
-//       const response = await fetch("http://localhost:5000/api/register", {
+//       const response = await fetch(API_BASE + "/api/register", {
 //         method: "POST",
 //         body: formData,
 //       });
@@ -399,6 +399,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from "react-router-dom";
 import '../App.css';
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 // Initialize intl-tel-input on window load
 const loadIntlTelInput = () => {
@@ -541,7 +542,7 @@ const Register = () => {
       formData.append('profilePicture', user.profilePicture);
       formData.append('password', user.password);
 
-      const response = await fetch("http://localhost:5000/api/register", {
+      const response = await fetch(API_BASE + "/api/register", {
         method: "POST",
         body: formData,
       });

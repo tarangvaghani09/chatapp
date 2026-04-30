@@ -8,7 +8,7 @@
 // import { IoCloseOutline } from "react-icons/io5";
 // import io from "socket.io-client";
 
-// const socket = io("http://localhost:5000");
+// const socket = io(API_BASE + "");
 
 // const UserList = ({ onSelectUser, onCloseUserList, hideUserList }) => {
 //   const [users, setUsers] = useState([]);
@@ -35,7 +35,7 @@
 //     const fetchLoggedInUser = async () => {
 //       try {
 //         const storedUsername = localStorage.getItem("username");
-//         const response = await fetch(`http://localhost:5000/api/registerUser?username=${storedUsername}`);
+//         const response = await fetch(`${API_BASE}/api/registerUser?username=${storedUsername}`);
 //         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 //         const data = await response.json();
 //         setLoggedInUser(data.user);
@@ -49,7 +49,7 @@
 //   // useEffect(() => {
 //   //   const fetchUsers = async () => {
 //   //     try {
-//   //       const response = await fetch("http://localhost:5000/api/register");
+//   //       const response = await fetch(API_BASE + "/api/register");
 //   //       if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 //   //       const data = await response.json();
 
@@ -94,7 +94,7 @@
 //       if (!loggedInUser) return; // Make sure logged in user details are available
 //       try {
 //         // Get the contacts list for the logged in user
-//         const contactResponse = await fetch(`http://localhost:5000/api/contacts?owner=${loggedInUser.phone}`);
+//         const contactResponse = await fetch(`${API_BASE}/api/contacts?owner=${loggedInUser.phone}`);
 //         let contactsArray = [];
 //         if (contactResponse.ok) {
 //           const contactData = await contactResponse.json();
@@ -103,7 +103,7 @@
 //           // console.log("contactsArray", contactsArray)
 //         }
 //         // Fetch all registered users
-//         const response = await fetch("http://localhost:5000/api/register");
+//         const response = await fetch(API_BASE + "/api/register");
 //         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 //         const data = await response.json();
 //         // console.log("data", data)
@@ -127,7 +127,7 @@
 //       const latestMessages = {};
 //       for (const user of users) {
 //         try {
-//           const response = await fetch(`http://localhost:5000/api/latestmessage?user1=${storedUsername}&user2=${user.phone}`);
+//           const response = await fetch(`${API_BASE}/api/latestmessage?user1=${storedUsername}&user2=${user.phone}`);
 //           if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 //           const data = await response.json();
 //           latestMessages[user.phone] = data.message;
@@ -281,10 +281,10 @@
 //               onClick={() => handleClick(user, index)}
 //             >
 //               <img
-//                 src={`http://localhost:5000/${user.profilePicture}`}
+//                 src={`${API_BASE}/${user.profilePicture}`}
 //                 alt="Profile"
 //                 className="h-10 w-10 mr-4 rounded-full object-cover"
-//                 onClick={(e) => handleImageClick(e, `http://localhost:5000/${user.profilePicture}`)}
+//                 onClick={(e) => handleImageClick(e, `${API_BASE}/${user.profilePicture}`)}
 //               />
 //               <div className="user-info flex-1">
 //                 <p className="font-bold text-gray-800">
@@ -338,7 +338,7 @@
 // import io from "socket.io-client";
 // import { AiOutlineClose } from "react-icons/ai";
 
-// const socket = io("http://localhost:5000");
+// const socket = io(API_BASE + "");
 
 // const UserList = ({ onSelectUser, onCloseUserList, hideUserList }) => {
 //   const [users, setUsers] = useState([]);
@@ -365,7 +365,7 @@
 //     const fetchLoggedInUser = async () => {
 //       try {
 //         const storedUsername = localStorage.getItem("username");
-//         const response = await fetch(`http://localhost:5000/api/registerUser?username=${storedUsername}`);
+//         const response = await fetch(`${API_BASE}/api/registerUser?username=${storedUsername}`);
 //         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 //         const data = await response.json();
 //         setLoggedInUser(data.user);
@@ -383,7 +383,7 @@
 //       if (!loggedInUser) return; // Make sure logged in user details are available
 //       try {
 //         // Get the contacts list for the logged in user
-//         const contactResponse = await fetch(`http://localhost:5000/api/contacts?owner=${loggedInUser.phone}`);
+//         const contactResponse = await fetch(`${API_BASE}/api/contacts?owner=${loggedInUser.phone}`);
 //         let contactsArray = [];
 //         if (contactResponse.ok) {
 //           const contactData = await contactResponse.json();
@@ -398,7 +398,7 @@
 //         const phoneList = contactsArray.map(contactObj => contactObj.contactPhone);
 
 //         // Fetch all registered users
-//         const response = await fetch("http://localhost:5000/api/register");
+//         const response = await fetch(API_BASE + "/api/register");
 //         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 //         const data = await response.json();
 
@@ -425,7 +425,7 @@
 //       const latestMessages = {};
 //       for (const user of users) {
 //         try {
-//           const response = await fetch(`http://localhost:5000/api/latestmessage?user1=${storedUsername}&user2=${user.phone}`);
+//           const response = await fetch(`${API_BASE}/api/latestmessage?user1=${storedUsername}&user2=${user.phone}`);
 //           if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 //           const data = await response.json();
 //           latestMessages[user.phone] = data.message;
@@ -575,10 +575,10 @@
 //               onClick={() => handleClick(user, index)}
 //             >
 //               <img
-//                 src={`http://localhost:5000/${user.profilePicture}`}
+//                 src={`${API_BASE}/${user.profilePicture}`}
 //                 alt="Profile"
 //                 className="h-10 w-10 mr-4 rounded-full object-cover"
-//                 onClick={(e) => handleImageClick(e, `http://localhost:5000/${user.profilePicture}`)}
+//                 onClick={(e) => handleImageClick(e, `${API_BASE}/${user.profilePicture}`)}
 //               />
 //               <div className="user-info flex-1">
 //                 <p className="font-bold text-gray-800 capitalize">
@@ -652,7 +652,7 @@
 // import io from "socket.io-client";
 // import { AiOutlineClose } from "react-icons/ai";
 
-// const socket = io("http://localhost:5000");
+// const socket = io(API_BASE + "");
 
 // const UserList = ({ onSelectUser, onCloseUserList, hideUserList }) => {
 //   const [users, setUsers] = useState([]);
@@ -679,7 +679,7 @@
 //     const fetchLoggedInUser = async () => {
 //       try {
 //         const storedUsername = localStorage.getItem("username");
-//         const response = await fetch(`http://localhost:5000/api/registerUser?username=${storedUsername}`);
+//         const response = await fetch(`${API_BASE}/api/registerUser?username=${storedUsername}`);
 //         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 //         const data = await response.json();
 //         setLoggedInUser(data.user);
@@ -697,7 +697,7 @@
 //       if (!loggedInUser) return; // Make sure logged in user details are available
 //       try {
 //         // Get the contacts list for the logged in user
-//         const contactResponse = await fetch(`http://localhost:5000/api/contacts?owner=${loggedInUser.phone}`);
+//         const contactResponse = await fetch(`${API_BASE}/api/contacts?owner=${loggedInUser.phone}`);
 //         let contactsArray = [];
 //         if (contactResponse.ok) {
 //           const contactData = await contactResponse.json();
@@ -712,7 +712,7 @@
 //         const phoneList = contactsArray.map(contactObj => contactObj.contactPhone);
 
 //         // Fetch all registered users
-//         const response = await fetch("http://localhost:5000/api/register");
+//         const response = await fetch(API_BASE + "/api/register");
 //         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 //         const data = await response.json();
 
@@ -739,7 +739,7 @@
 //       const latestMessages = {};
 //       for (const user of users) {
 //         try {
-//           const response = await fetch(`http://localhost:5000/api/latestmessage?user1=${storedUsername}&user2=${user.phone}`);
+//           const response = await fetch(`${API_BASE}/api/latestmessage?user1=${storedUsername}&user2=${user.phone}`);
 //           if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 //           const data = await response.json();
 //           latestMessages[user.phone] = data.message;
@@ -894,10 +894,10 @@
 //               onClick={() => handleClick(user, index)}
 //             >
 //               <img
-//                 src={`http://localhost:5000/${user.profilePicture}`}
+//                 src={`${API_BASE}/${user.profilePicture}`}
 //                 alt="Profile"
 //                 className="h-10 w-10 mr-4 rounded-full object-cover"
-//                 onClick={(e) => handleImageClick(e, `http://localhost:5000/${user.profilePicture}`)}
+//                 onClick={(e) => handleImageClick(e, `${API_BASE}/${user.profilePicture}`)}
 //               />
 //               <div className="user-info flex-1">
 //                 <p className="font-bold text-gray-800 capitalize">
@@ -969,7 +969,7 @@
 // import io from "socket.io-client";
 // import { AiOutlineClose } from "react-icons/ai";
 
-// const socket = io("http://localhost:5000");
+// const socket = io(API_BASE + "");
 
 // const UserList = ({ onSelectUser, onCloseUserList, hideUserList }) => {
 //   const [users, setUsers] = useState([]);
@@ -1003,7 +1003,7 @@
 //     const fetchLoggedInUser = async () => {
 //       try {
 //         const storedUsername = localStorage.getItem("username");
-//         const response = await fetch(`http://localhost:5000/api/registerUser?username=${storedUsername}`);
+//         const response = await fetch(`${API_BASE}/api/registerUser?username=${storedUsername}`);
 //         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 //         const data = await response.json();
 //         setLoggedInUser(data.user);
@@ -1021,7 +1021,7 @@
 //       if (!loggedInUser) return; // Make sure logged in user details are available
 //       try {
 //         // Get the contacts list for the logged in user
-//         const contactResponse = await fetch(`http://localhost:5000/api/contacts?owner=${loggedInUser.phone}`);
+//         const contactResponse = await fetch(`${API_BASE}/api/contacts?owner=${loggedInUser.phone}`);
 //         let contactsArray = [];
 //         if (contactResponse.ok) {
 //           const contactData = await contactResponse.json();
@@ -1036,7 +1036,7 @@
 //         const phoneList = contactsArray.map(contactObj => contactObj.contactPhone);
 
 //         // Fetch all registered users
-//         const response = await fetch("http://localhost:5000/api/register");
+//         const response = await fetch(API_BASE + "/api/register");
 //         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 //         const data = await response.json();
 
@@ -1063,7 +1063,7 @@
 //       const latestMessages = {};
 //       for (const user of users) {
 //         try {
-//           const response = await fetch(`http://localhost:5000/api/latestmessage?user1=${storedUsername}&user2=${user.phone}`);
+//           const response = await fetch(`${API_BASE}/api/latestmessage?user1=${storedUsername}&user2=${user.phone}`);
 //           if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 //           const data = await response.json();
 //           latestMessages[user.phone] = data.message;
@@ -1228,10 +1228,10 @@
 //               onClick={() => handleClick(user, index)}
 //             >
 //               <img
-//                 src={`http://localhost:5000/${user.profilePicture}`}
+//                 src={`${API_BASE}/${user.profilePicture}`}
 //                 alt="Profile"
 //                 className="h-10 w-10 mr-4 rounded-full object-cover"
-//                 onClick={(e) => handleImageClick(e, `http://localhost:5000/${user.profilePicture}`)}
+//                 onClick={(e) => handleImageClick(e, `${API_BASE}/${user.profilePicture}`)}
 //               />
 //               <div className="user-info flex-1">
 //                 <p className="font-bold text-gray-800 capitalize">
@@ -1305,7 +1305,7 @@
 // import io from "socket.io-client";
 // import { AiOutlineClose } from "react-icons/ai";
 
-// const socket = io("http://localhost:5000");
+// const socket = io(API_BASE + "");
 
 // const UserList = ({ onSelectUser, onCloseUserList, hideUserList }) => {
 //   // Existing states
@@ -1337,7 +1337,7 @@
 //     const fetchLoggedInUser = async () => {
 //       try {
 //         const storedUsername = localStorage.getItem("username");
-//         const response = await fetch(`http://localhost:5000/api/registerUser?username=${storedUsername}`);
+//         const response = await fetch(`${API_BASE}/api/registerUser?username=${storedUsername}`);
 //         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 //         const data = await response.json();
 //         setLoggedInUser(data.user);
@@ -1354,7 +1354,7 @@
 //       if (!loggedInUser) return; // Ensure logged in user details are available
 //       try {
 //         // Get the contacts list for the logged in user
-//         const contactResponse = await fetch(`http://localhost:5000/api/contacts?owner=${loggedInUser.phone}`);
+//         const contactResponse = await fetch(`${API_BASE}/api/contacts?owner=${loggedInUser.phone}`);
 //         let contactsArray = [];
 //         if (contactResponse.ok) {
 //           const contactData = await contactResponse.json();
@@ -1371,7 +1371,7 @@
 //         const phoneList = contactsArray.map(contactObj => contactObj.contactPhone);
 
 //         // Fetch all registered users
-//         const response = await fetch("http://localhost:5000/api/register");
+//         const response = await fetch(API_BASE + "/api/register");
 //         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 //         const data = await response.json();
 
@@ -1399,7 +1399,7 @@
 //       const latestMessages = {};
 //       for (const user of users) {
 //         try {
-//           const response = await fetch(`http://localhost:5000/api/latestmessage?user1=${storedUsername}&user2=${user.phone}`);
+//           const response = await fetch(`${API_BASE}/api/latestmessage?user1=${storedUsername}&user2=${user.phone}`);
 //           if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 //           const data = await response.json();
 //           latestMessages[user.phone] = data.message;
@@ -1417,7 +1417,7 @@
 //   const addUnknownContactToDB = async (phone) => {
 //     if (!loggedInUser) return;
 //     try {
-//       const response = await fetch("http://localhost:5000/api/addunknowncontact", {
+//       const response = await fetch(API_BASE + "/api/addunknowncontact", {
 //         method: "POST",
 //         headers: { "Content-Type": "application/json" },
 //         body: JSON.stringify({
@@ -1575,7 +1575,7 @@
 //   // This calls the addContact endpoint, and on success refreshes the unknown contacts list.
 //   const handleSaveUnknownContact = async (unknownContact) => {
 //     try {
-//       const response = await fetch("http://localhost:5000/api/addcontact", {
+//       const response = await fetch(API_BASE + "/api/addcontact", {
 //         method: "POST",
 //         headers: { "Content-Type": "application/json" },
 //         body: JSON.stringify({
@@ -1622,10 +1622,10 @@
 //               onClick={() => handleClick(user, index)}
 //             >
 //               <img
-//                 src={`http://localhost:5000/${user.profilePicture}`}
+//                 src={`${API_BASE}/${user.profilePicture}`}
 //                 alt="Profile"
 //                 className="h-10 w-10 mr-4 rounded-full object-cover"
-//                 onClick={(e) => handleImageClick(e, `http://localhost:5000/${user.profilePicture}`)}
+//                 onClick={(e) => handleImageClick(e, `${API_BASE}/${user.profilePicture}`)}
 //               />
 //               <div className="user-info flex-1">
 //                 <p className="font-bold text-gray-800 capitalize">
@@ -1725,7 +1725,7 @@
 // import io from "socket.io-client";
 // import { AiOutlineClose } from "react-icons/ai";
 
-// const socket = io("http://localhost:5000");
+// const socket = io(API_BASE + "");
 
 // const UserList = ({ onSelectUser, onCloseUserList, hideUserList }) => {
 //   // Existing states
@@ -1758,7 +1758,7 @@
 //       try {
 //         const storedUsername = localStorage.getItem("username");
 //         const response = await fetch(
-//           `http://localhost:5000/api/registerUser?username=${storedUsername}`
+//           `${API_BASE}/api/registerUser?username=${storedUsername}`
 //         );
 //         if (!response.ok)
 //           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -1778,7 +1778,7 @@
 //       try {
 //         // Get the contacts list for the logged in user
 //         const contactResponse = await fetch(
-//           `http://localhost:5000/api/contacts?owner=${loggedInUser.phone}`
+//           `${API_BASE}/api/contacts?owner=${loggedInUser.phone}`
 //         );
 //         let contactsArray = [];
 //         if (contactResponse.ok) {
@@ -1798,7 +1798,7 @@
 //         );
 
 //         // Fetch all registered users
-//         const response = await fetch("http://localhost:5000/api/register");
+//         const response = await fetch(API_BASE + "/api/register");
 //         if (!response.ok)
 //           throw new Error(`HTTP error! Status: ${response.status}`);
 //         const data = await response.json();
@@ -1830,7 +1830,7 @@
 //       for (const user of users) {
 //         try {
 //           const response = await fetch(
-//             `http://localhost:5000/api/latestmessage?user1=${storedUsername}&user2=${user.phone}`
+//             `${API_BASE}/api/latestmessage?user1=${storedUsername}&user2=${user.phone}`
 //           );
 //           if (!response.ok)
 //             throw new Error(`HTTP error! Status: ${response.status}`);
@@ -1850,7 +1850,7 @@
 //   const addUnknownContactToDB = async (phone) => {
 //     if (!loggedInUser) return;
 //     try {
-//       const response = await fetch("http://localhost:5000/api/addunknowncontact", {
+//       const response = await fetch(API_BASE + "/api/addunknowncontact", {
 //         method: "POST",
 //         headers: { "Content-Type": "application/json" },
 //         body: JSON.stringify({
@@ -2057,7 +2057,7 @@
 //   // This calls the addContact endpoint, and on success refreshes the unknown contacts list.
 //   const handleSaveUnknownContact = async (unknownContact) => {
 //     try {
-//       const response = await fetch("http://localhost:5000/api/addcontact", {
+//       const response = await fetch(API_BASE + "/api/addcontact", {
 //         method: "POST",
 //         headers: { "Content-Type": "application/json" },
 //         body: JSON.stringify({
@@ -2124,7 +2124,7 @@
 //                 alt="Profile"
 //                 className="h-10 w-10 mr-4 rounded-full object-cover"
 //                 onClick={(e) =>
-//                   handleImageClick(e, `http://localhost:5000/${user.profilePicture}`)
+//                   handleImageClick(e, `${API_BASE}/${user.profilePicture}`)
 //                 }
 //               />
 //               <div className="user-info flex-1">
@@ -2209,7 +2209,7 @@
 // import io from "socket.io-client";
 // import { AiOutlineClose } from "react-icons/ai";
 
-// const socket = io("http://localhost:5000");
+// const socket = io(API_BASE + "");
 
 // const UserList = ({ onSelectUser, onCloseUserList, hideUserList }) => {
 //   // Existing states
@@ -2242,7 +2242,7 @@
 //       try {
 //         const storedUsername = localStorage.getItem("username");
 //         const response = await fetch(
-//           `http://localhost:5000/api/registerUser?username=${storedUsername}`
+//           `${API_BASE}/api/registerUser?username=${storedUsername}`
 //         );
 //         if (!response.ok)
 //           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -2262,7 +2262,7 @@
 //       try {
 //         // Get the contacts list for the logged in user
 //         const contactResponse = await fetch(
-//           `http://localhost:5000/api/contacts?owner=${loggedInUser.phone}`
+//           `${API_BASE}/api/contacts?owner=${loggedInUser.phone}`
 //         );
 //         let contactsArray = [];
 //         if (contactResponse.ok) {
@@ -2282,7 +2282,7 @@
 //         );
 
 //         // Fetch all registered users
-//         const response = await fetch("http://localhost:5000/api/register");
+//         const response = await fetch(API_BASE + "/api/register");
 //         if (!response.ok)
 //           throw new Error(`HTTP error! Status: ${response.status}`);
 //         const data = await response.json();
@@ -2314,7 +2314,7 @@
 //       for (const user of users) {
 //         try {
 //           const response = await fetch(
-//             `http://localhost:5000/api/latestmessage?user1=${storedUsername}&user2=${user.phone}`
+//             `${API_BASE}/api/latestmessage?user1=${storedUsername}&user2=${user.phone}`
 //           );
 //           if (!response.ok)
 //             throw new Error(`HTTP error! Status: ${response.status}`);
@@ -2334,7 +2334,7 @@
 //   const addUnknownContactToDB = async (phone) => {
 //     if (!loggedInUser) return;
 //     try {
-//       const response = await fetch("http://localhost:5000/api/addunknowncontact", {
+//       const response = await fetch(API_BASE + "/api/addunknowncontact", {
 //         method: "POST",
 //         headers: { "Content-Type": "application/json" },
 //         body: JSON.stringify({
@@ -2540,7 +2540,7 @@
 //  // NEW: Remove an unknown contact from the database
 //  const handleDeleteUnknownContact = async (contactPhone) => {
 //   try {
-//     const response = await fetch("http://localhost:5000/api/removeunknowncontact", {
+//     const response = await fetch(API_BASE + "/api/removeunknowncontact", {
 //       method: "DELETE",
 //       headers: { "Content-Type": "application/json" },
 //       body: JSON.stringify({
@@ -2592,7 +2592,7 @@
 //                 alt="Profile"
 //                 className="h-10 w-10 mr-4 rounded-full object-cover"
 //                 onClick={(e) =>
-//                   handleImageClick(e, `http://localhost:5000/${user.profilePicture}`)
+//                   handleImageClick(e, `${API_BASE}/${user.profilePicture}`)
 //                 }
 //               />
 //               <div className="user-info flex-1">
@@ -2674,7 +2674,7 @@
 // import io from "socket.io-client";
 // import { AiOutlineClose } from "react-icons/ai";
 
-// const socket = io("http://localhost:5000");
+// const socket = io(API_BASE + "");
 
 // const UserList = ({ onSelectUser, onCloseUserList, hideUserList }) => {
 //   // === state ===
@@ -2697,7 +2697,7 @@
 //     const fetchLoggedInUser = async () => {
 //       try {
 //         const storedUsername = localStorage.getItem("username");
-//         const res = await fetch(`http://localhost:5000/api/registerUser?username=${storedUsername}`);
+//         const res = await fetch(`${API_BASE}/api/registerUser?username=${storedUsername}`);
 //         if (!res.ok) throw new Error(res.statusText);
 //         const { user } = await res.json();
 //         setLoggedInUser(user);
@@ -2714,12 +2714,12 @@
 //     const fetchContacts = async () => {
 //       try {
 //         // 1) contacts endpoint returns both saved and unknown
-//         const res = await fetch(`http://localhost:5000/api/contacts?owner=${loggedInUser.phone}`);
+//         const res = await fetch(`${API_BASE}/api/contacts?owner=${loggedInUser.phone}`);
 //         if (!res.ok) throw new Error(res.statusText);
 //         const { contacts, unknownContacts: unk } = await res.json();
 //         setUnknownContacts(unk || []);
 //         // 2) fetch all registered users, filter to your saved
-//         const allRes = await fetch("http://localhost:5000/api/register");
+//         const allRes = await fetch(API_BASE + "/api/register");
 //         if (!allRes.ok) throw new Error(allRes.statusText);
 //         const { users: allUsers } = await allRes.json();
 
@@ -2752,7 +2752,7 @@
 //       for (let u of users) {
 //         try {
 //           const res = await fetch(
-//             `http://localhost:5000/api/latestmessage?user1=${storedUsername}&user2=${u.phone}`
+//             `${API_BASE}/api/latestmessage?user1=${storedUsername}&user2=${u.phone}`
 //           );
 //           if (!res.ok) throw new Error(res.statusText);
 //           const { message } = await res.json();
@@ -2776,7 +2776,7 @@
 //   const addUnknownContactToDB = async (phone) => {
 //     if (!loggedInUser) return;
 //     try {
-//       const res = await fetch("http://localhost:5000/api/addunknowncontact", {
+//       const res = await fetch(API_BASE + "/api/addunknowncontact", {
 //         method: "POST",
 //         headers: { "Content-Type": "application/json" },
 //         body: JSON.stringify({
@@ -2801,7 +2801,7 @@
 //   // === helper: remove unknown both DB & state ===
 //   const handleDeleteUnknownContact = async (contactPhone) => {
 //     try {
-//       const res = await fetch("http://localhost:5000/api/removeunknowncontact", {
+//       const res = await fetch(API_BASE + "/api/removeunknowncontact", {
 //         method: "DELETE",
 //         headers: { "Content-Type": "application/json" },
 //         body: JSON.stringify({ owner: loggedInUser.phone, contactPhone }),
@@ -2940,11 +2940,11 @@
 //               onClick={() => handleClick(user)}
 //             >
 //               <img
-//                 src={`http://localhost:5000/${user.profilePicture || "default-profile.png"}`}
+//                 src={`${API_BASE}/${user.profilePicture || "default-profile.png"}`}
 //                 alt="Profile"
 //                 className="h-10 w-10 rounded-full mr-3 object-cover"
 //                 onClick={(e) =>
-//                   handleImageClick(e, `http://localhost:5000/${user.profilePicture}`)
+//                   handleImageClick(e, `${API_BASE}/${user.profilePicture}`)
 //                 }
 //               />
 //               <div className="flex-1">
@@ -3016,7 +3016,7 @@
 // import io from "socket.io-client";
 // import { AiOutlineClose } from "react-icons/ai";
 
-// const socket = io("http://localhost:5000");
+// const socket = io(API_BASE + "");
 
 // const UserList = ({ onSelectUser, onCloseUserList, hideUserList, onClearChat }) => {
 //   // === state ===
@@ -3039,7 +3039,7 @@
 //     const fetchLoggedInUser = async () => {
 //       try {
 //         const storedUsername = localStorage.getItem("username");
-//         const res = await fetch(`http://localhost:5000/api/registerUser?username=${storedUsername}`);
+//         const res = await fetch(`${API_BASE}/api/registerUser?username=${storedUsername}`);
 //         if (!res.ok) throw new Error(res.statusText);
 //         const { user } = await res.json();
 //         setLoggedInUser(user);
@@ -3056,12 +3056,12 @@
 //     const fetchContacts = async () => {
 //       try {
 //         // 1) contacts endpoint returns both saved and unknown
-//         const res = await fetch(`http://localhost:5000/api/contacts?owner=${loggedInUser.phone}`);
+//         const res = await fetch(`${API_BASE}/api/contacts?owner=${loggedInUser.phone}`);
 //         if (!res.ok) throw new Error(res.statusText);
 //         const { contacts, unknownContacts: unk } = await res.json();
 //         setUnknownContacts(unk || []);
 //         // 2) fetch all registered users, filter to your saved
-//         const allRes = await fetch("http://localhost:5000/api/register");
+//         const allRes = await fetch(API_BASE + "/api/register");
 //         if (!allRes.ok) throw new Error(allRes.statusText);
 //         const { users: allUsers } = await allRes.json();
 
@@ -3094,7 +3094,7 @@
 //       for (let u of users) {
 //         try {
 //           const res = await fetch(
-//             `http://localhost:5000/api/latestmessage?user1=${storedUsername}&user2=${u.phone}`
+//             `${API_BASE}/api/latestmessage?user1=${storedUsername}&user2=${u.phone}`
 //           );
 //           if (!res.ok) throw new Error(res.statusText);
 //           const { message } = await res.json();
@@ -3118,7 +3118,7 @@
 //   const addUnknownContactToDB = async (phone) => {
 //     if (!loggedInUser) return;
 //     try {
-//       const res = await fetch("http://localhost:5000/api/addunknowncontact", {
+//       const res = await fetch(API_BASE + "/api/addunknowncontact", {
 //         method: "POST",
 //         headers: { "Content-Type": "application/json" },
 //         body: JSON.stringify({
@@ -3143,7 +3143,7 @@
 //   // === helper: remove unknown both DB & state ===
 //   const handleDeleteUnknownContact = async (contactPhone) => {
 //     try {
-//       const res = await fetch("http://localhost:5000/api/removeunknowncontact", {
+//       const res = await fetch(API_BASE + "/api/removeunknowncontact", {
 //         method: "DELETE",
 //         headers: { "Content-Type": "application/json" },
 //         body: JSON.stringify({ owner: loggedInUser.phone, contactPhone }),
@@ -3284,11 +3284,11 @@
 //               onClick={() => handleClick(user)}
 //             >
 //               <img
-//                 src={`http://localhost:5000/${user.profilePicture || "default-profile.png"}`}
+//                 src={`${API_BASE}/${user.profilePicture || "default-profile.png"}`}
 //                 alt="Profile"
 //                 className="h-10 w-10 rounded-full mr-3 object-cover"
 //                 onClick={(e) =>
-//                   handleImageClick(e, `http://localhost:5000/${user.profilePicture}`)
+//                   handleImageClick(e, `${API_BASE}/${user.profilePicture}`)
 //                 }
 //               />
 //               <div className="flex-1">
@@ -3358,7 +3358,7 @@
 // import io from "socket.io-client";
 // import { AiOutlineClose } from "react-icons/ai";
 
-// const socket = io("http://localhost:5000");
+// const socket = io(API_BASE + "");
 
 // const UserList = ({ onSelectUser, onCloseUserList, hideUserList, onClearChat }) => {
 //   // === state ===
@@ -3381,7 +3381,7 @@
 //     const fetchLoggedInUser = async () => {
 //       try {
 //         const storedUsername = localStorage.getItem("username");
-//         const res = await fetch(`http://localhost:5000/api/registerUser?username=${storedUsername}`);
+//         const res = await fetch(`${API_BASE}/api/registerUser?username=${storedUsername}`);
 //         if (!res.ok) throw new Error(res.statusText);
 //         const { user } = await res.json();
 //         setLoggedInUser(user);
@@ -3398,12 +3398,12 @@
 //     const fetchContacts = async () => {
 //       try {
 //         // 1) contacts endpoint returns both saved and unknown
-//         const res = await fetch(`http://localhost:5000/api/contacts?owner=${loggedInUser.phone}`);
+//         const res = await fetch(`${API_BASE}/api/contacts?owner=${loggedInUser.phone}`);
 //         if (!res.ok) throw new Error(res.statusText);
 //         const { contacts, unknownContacts: unk } = await res.json();
 //         setUnknownContacts(unk || []);
 //         // 2) fetch all registered users, filter to your saved
-//         const allRes = await fetch("http://localhost:5000/api/register");
+//         const allRes = await fetch(API_BASE + "/api/register");
 //         if (!allRes.ok) throw new Error(allRes.statusText);
 //         const { users: allUsers } = await allRes.json();
 
@@ -3455,7 +3455,7 @@
 //     for (let phone of uniquePhones) {
 //       try {
 //         const res = await fetch(
-//           `http://localhost:5000/api/latestmessage?user1=${storedUsername}&user2=${phone}`
+//           `${API_BASE}/api/latestmessage?user1=${storedUsername}&user2=${phone}`
 //         );
 //         if (!res.ok) throw new Error(res.statusText);
 //         const { displayMessage } = await res.json();
@@ -3498,7 +3498,7 @@
 //   const addUnknownContactToDB = async (phone) => {
 //     if (!loggedInUser) return;
 //     try {
-//       const res = await fetch("http://localhost:5000/api/addunknowncontact", {
+//       const res = await fetch(API_BASE + "/api/addunknowncontact", {
 //         method: "POST",
 //         headers: { "Content-Type": "application/json" },
 //         body: JSON.stringify({
@@ -3523,7 +3523,7 @@
 //   // === helper: remove unknown both DB & state ===
 //   const handleDeleteUnknownContact = async (contactPhone) => {
 //     try {
-//       const res = await fetch("http://localhost:5000/api/removeunknowncontact", {
+//       const res = await fetch(API_BASE + "/api/removeunknowncontact", {
 //         method: "DELETE",
 //         headers: { "Content-Type": "application/json" },
 //         body: JSON.stringify({ owner: loggedInUser.phone, contactPhone }),
@@ -3675,11 +3675,11 @@
 //               onClick={() => handleClick(user)}
 //             >
 //               <img
-//                 src={`http://localhost:5000/${user.profilePicture || "default-profile.png"}`}
+//                 src={`${API_BASE}/${user.profilePicture || "default-profile.png"}`}
 //                 alt="Profile"
 //                 className="h-10 w-10 rounded-full mr-3 object-cover"
 //                 onClick={(e) =>
-//                   handleImageClick(e, `http://localhost:5000/${user.profilePicture}`)
+//                   handleImageClick(e, `${API_BASE}/${user.profilePicture}`)
 //                 }
 //               />
 //               <div className="flex-1">
@@ -3750,8 +3750,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleAiChat } from "../actions/chatAction";
 import io from "socket.io-client";
 import { AiOutlineClose } from "react-icons/ai";
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
-const socket = io("http://localhost:5000");
+const socket = io(API_BASE + "");
 
 const UserList = ({ onSelectUser, onCloseUserList, hideUserList, onClearChat }) => {
   // === state ===
@@ -3774,7 +3775,7 @@ const UserList = ({ onSelectUser, onCloseUserList, hideUserList, onClearChat }) 
     const fetchLoggedInUser = async () => {
       try {
         const storedUsername = localStorage.getItem("username");
-        const res = await fetch(`http://localhost:5000/api/registerUser?username=${storedUsername}`);
+        const res = await fetch(`${API_BASE}/api/registerUser?username=${storedUsername}`);
         if (!res.ok) throw new Error(res.statusText);
         const { user } = await res.json();
         setLoggedInUser(user);
@@ -3791,12 +3792,12 @@ const UserList = ({ onSelectUser, onCloseUserList, hideUserList, onClearChat }) 
     const fetchContacts = async () => {
       try {
         // 1) contacts endpoint returns both saved and unknown
-        const res = await fetch(`http://localhost:5000/api/contacts?owner=${loggedInUser.phone}`);
+        const res = await fetch(`${API_BASE}/api/contacts?owner=${loggedInUser.phone}`);
         if (!res.ok) throw new Error(res.statusText);
         const { contacts, unknownContacts: unk } = await res.json();
         setUnknownContacts(unk || []);
         // 2) fetch all registered users, filter to your saved
-        const allRes = await fetch("http://localhost:5000/api/register");
+        const allRes = await fetch(API_BASE + "/api/register");
         if (!allRes.ok) throw new Error(allRes.statusText);
         const { users: allUsers } = await allRes.json();
 
@@ -3845,7 +3846,7 @@ const UserList = ({ onSelectUser, onCloseUserList, hideUserList, onClearChat }) 
     for (let phone of uniquePhones) {
       try {
         const res = await fetch(
-          `http://localhost:5000/api/latestmessage?user1=${storedUsername}&user2=${phone}`
+          `${API_BASE}/api/latestmessage?user1=${storedUsername}&user2=${phone}`
         );
         if (!res.ok) throw new Error(res.statusText);
         const { displayMessage } = await res.json();
@@ -3879,7 +3880,7 @@ const UserList = ({ onSelectUser, onCloseUserList, hideUserList, onClearChat }) 
   const addUnknownContactToDB = async (phone) => {
     if (!loggedInUser) return;
     try {
-      const res = await fetch("http://localhost:5000/api/addunknowncontact", {
+      const res = await fetch(API_BASE + "/api/addunknowncontact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -3903,7 +3904,7 @@ const UserList = ({ onSelectUser, onCloseUserList, hideUserList, onClearChat }) 
   // === helper: remove unknown both DB & state ===
   const handleDeleteUnknownContact = async (contactPhone) => {
     try {
-      const res = await fetch("http://localhost:5000/api/removeunknowncontact", {
+      const res = await fetch(API_BASE + "/api/removeunknowncontact", {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ owner: loggedInUser.phone, contactPhone }),
@@ -4042,11 +4043,11 @@ const UserList = ({ onSelectUser, onCloseUserList, hideUserList, onClearChat }) 
               onClick={() => handleClick(user)}
             >
               <img
-                src={`http://localhost:5000/${user.profilePicture || "default-profile.png"}`}
+                src={`${API_BASE}/${user.profilePicture || "default-profile.png"}`}
                 alt="Profile"
                 className="h-12 w-12 rounded-full object-cover mr-3 border-2 border-white shadow-sm"
                 onClick={(e) =>
-                  handleImageClick(e, `http://localhost:5000/${user.profilePicture}`)
+                  handleImageClick(e, `${API_BASE}/${user.profilePicture}`)
                 }
               />
               <div className="flex-1 min-w-0">

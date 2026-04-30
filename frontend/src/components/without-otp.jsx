@@ -80,7 +80,7 @@ const login = async (req, res) => {
 //         e.preventDefault();
 
 //         try {
-//             const response = await fetch("http://localhost:5000/api/login", {
+//             const response = await fetch(API_BASE + "/api/login", {
 //                 method: "POST",
 //                 headers: {
 //                     "Content-Type": "application/json",
@@ -185,6 +185,7 @@ const login = async (req, res) => {
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import '../App.css';
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 const Login = () => {
   const [user, setUser] = useState({
@@ -211,7 +212,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:5000/api/login", {
+      const response = await fetch(API_BASE + "/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -313,4 +314,5 @@ const Login = () => {
 };
 
 export default Login;
+
 

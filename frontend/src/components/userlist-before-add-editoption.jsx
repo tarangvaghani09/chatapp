@@ -1,4 +1,5 @@
 import React from "react";
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 const UserDetails = ({ user, closeOverlayProfile }) => {
     if (!user) return null;
@@ -9,7 +10,7 @@ const UserDetails = ({ user, closeOverlayProfile }) => {
           onClick={closeOverlayProfile}
         >
             <img
-                src={`http://localhost:5000/${user.profilePicture}`}
+                src={`${API_BASE}/${user.profilePicture}`}
                 alt="Profile"
                 className="w-[200px] h-[200px] rounded-full object-cover object-center mb-5"
             />
@@ -20,3 +21,4 @@ const UserDetails = ({ user, closeOverlayProfile }) => {
 };
 
 export default UserDetails;
+

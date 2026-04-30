@@ -189,8 +189,9 @@ module.exports = configureSocket;
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import io from "socket.io-client";
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
-const socket = io("http://localhost:5000");
+const socket = io(API_BASE + "");
 
 const Login = () => {
     const [user, setUser] = useState({ phone: "", password: "", otp: "" });
@@ -250,6 +251,7 @@ const Login = () => {
 };
 
 export default Login;
+
 
 
 

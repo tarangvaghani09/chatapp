@@ -9,7 +9,7 @@
 
 // //     const sendOtp = async () => {
 // //         try {
-// //             const response = await fetch("http://localhost:5000/api/send-otp", {
+// //             const response = await fetch(API_BASE + "/api/send-otp", {
 // //                 method: "POST",
 // //                 headers: { "Content-Type": "application/json" },
 // //                 body: JSON.stringify({ phone }),
@@ -24,7 +24,7 @@
 
 // //     const verifyOtp = async () => {
 // //         try {
-// //             const response = await fetch("http://localhost:5000/api/verify-otp", {
+// //             const response = await fetch(API_BASE + "/api/verify-otp", {
 // //                 method: "POST",
 // //                 headers: { "Content-Type": "application/json" },
 // //                 body: JSON.stringify({ phone, otp }),
@@ -155,7 +155,7 @@
 // //         e.preventDefault();
 
 // //         try {
-// //             const response = await fetch("http://localhost:5000/api/login", {
+// //             const response = await fetch(API_BASE + "/api/login", {
 // //                 method: "POST",
 // //                 headers: {
 // //                     "Content-Type": "application/json",
@@ -350,7 +350,7 @@
 // //     }
 
 // //     try {
-// //       const response = await fetch("http://localhost:5000/api/login", {
+// //       const response = await fetch(API_BASE + "/api/login", {
 // //         method: "POST",
 // //         headers: {
 // //           "Content-Type": "application/json",
@@ -451,6 +451,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from "react-router-dom";
 import '../App.css';
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 // Initialize intl-tel-input on window load
 const loadIntlTelInput = () => {
@@ -554,7 +555,7 @@ const Login = () => {
     setLoading(true);
 
     try {
-      const response = await fetch("http://localhost:5000/api/login", {
+      const response = await fetch(API_BASE + "/api/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -699,7 +700,7 @@ export default Login;
 //   const handleSubmit = async (e) => {
 //     e.preventDefault();
 //     try {
-//       const res = await fetch("http://localhost:5000/api/login", {
+//       const res = await fetch(API_BASE + "/api/login", {
 //         method: "POST",
 //         headers: { "Content-Type": "application/json" },
 //         body: JSON.stringify(user),
@@ -794,5 +795,6 @@ export default Login;
 // };
 
 // export default Login;
+
 
 

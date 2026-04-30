@@ -23,7 +23,7 @@
 //             try {
 //                 const owner = localStorage.getItem("username");
 //                 const { data } = await axios.get(
-//                     `http://localhost:5000/api/contacts?owner=${owner}`
+//                     `${API_BASE}/api/contacts?owner=${owner}`
 //                 );
 //                 setContacts(data.contacts);
 //                 setUnknownContacts(data.unknownContacts);
@@ -145,13 +145,13 @@
 
 //                 // 1️⃣ Fetch saved + unknown contacts
 //                 const { data: contactsData } = await axios.get(
-//                     `http://localhost:5000/api/contacts?owner=${owner}`
+//                     `${API_BASE}/api/contacts?owner=${owner}`
 //                 );
 //                 const { contacts, unknownContacts } = contactsData;
 
 //                 // 2️⃣ Fetch all registered users so we can pull profile pictures, etc.
 //                 const { data: registerData } = await axios.get(
-//                     "http://localhost:5000/api/register"
+//                     API_BASE + "/api/register"
 //                 );
 //                 const { users: allUsers } = registerData;
 
@@ -218,7 +218,7 @@
 //         for (const phone of selectedPhones) {
 //             try {
 //                 // 1) Save to your sharedChatModel
-//                 await axios.post("http://localhost:5000/api/chats", {
+//                 await axios.post(API_BASE + "/api/chats", {
 //                     sender: owner,
 //                     receiver: phone,
 //                     message: shareChat.message,
@@ -261,7 +261,7 @@
 //                                 {/* Left: avatar + name/phone */}
 //                                 <div className="flex items-center space-x-3">
 //                                     <img
-//                                         src={`http://localhost:5000/${c.profilePicture}`}
+//                                         src={`${API_BASE}/${c.profilePicture}`}
 //                                         alt="Profile"
 //                                         className="h-8 w-8 rounded-full object-cover"
 //                                     />
@@ -314,6 +314,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { AiOutlineClose } from "react-icons/ai";
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 export default function ShareContactsModal({
     isOpen,
@@ -335,13 +336,13 @@ export default function ShareContactsModal({
 
                 // 1️⃣ Fetch saved + unknown contacts
                 const { data: contactsData } = await axios.get(
-                    `http://localhost:5000/api/contacts?owner=${owner}`
+                    `${API_BASE}/api/contacts?owner=${owner}`
                 );
                 const { contacts, unknownContacts } = contactsData;
 
                 // 2️⃣ Fetch all registered users so we can pull profile pictures, etc.
                 const { data: registerData } = await axios.get(
-                    "http://localhost:5000/api/register"
+                    API_BASE + "/api/register"
                 );
                 const { users: allUsers } = registerData;
 
@@ -408,7 +409,7 @@ export default function ShareContactsModal({
         for (const phone of selectedPhones) {
             try {
                 // 1) Save to your sharedChatModel
-                // await axios.post("http://localhost:5000/api/chats", {
+                // await axios.post(API_BASE + "/api/chats", {
                 //     sender: owner,
                 //     receiver: phone,
                 //     message: shareChat.message,
@@ -477,7 +478,7 @@ export default function ShareContactsModal({
                                 {/* Left: avatar + name/phone */}
                                 <div className="flex items-center space-x-3">
                                     <img
-                                        src={`http://localhost:5000/${c.profilePicture}`}
+                                        src={`${API_BASE}/${c.profilePicture}`}
                                         alt="Profile"
                                         className="h-8 w-8 rounded-full object-cover"
                                     />

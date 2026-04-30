@@ -13,7 +13,7 @@
 //     const fetchLoggedInUser = async () => {
 //       try {
 //         const storedUsername = localStorage.getItem("username");
-//         const response = await fetch(`http://localhost:5000/api/registerUser?username=${storedUsername}`);
+//         const response = await fetch(`${API_BASE}/api/registerUser?username=${storedUsername}`);
 //         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 //         const data = await response.json();
 //         setLoggedInUser(data.user);
@@ -33,7 +33,7 @@
 
 //   const fetchContacts = async () => {
 //     try {
-//       const response = await fetch(`http://localhost:5000/api/contacts?owner=${loggedInUser.phone}`);
+//       const response = await fetch(`${API_BASE}/api/contacts?owner=${loggedInUser.phone}`);
 //       if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 //       const data = await response.json();
 //       setContacts(data.contacts);
@@ -46,7 +46,7 @@
 //   const handleAddContact = async (e) => {
 //     e.preventDefault();
 //     try {
-//       const response = await fetch(`http://localhost:5000/api/addContact`, {
+//       const response = await fetch(`${API_BASE}/api/addContact`, {
 //         method: "POST",
 //         headers: {
 //           "Content-Type": "application/json"
@@ -69,7 +69,7 @@
 //   // Handler to remove an existing contact
 //   const handleRemoveContact = async (phone) => {
 //     try {
-//       const response = await fetch(`http://localhost:5000/api/removeContact`, {
+//       const response = await fetch(`${API_BASE}/api/removeContact`, {
 //         method: "DELETE",
 //         headers: {
 //           "Content-Type": "application/json"
@@ -154,7 +154,7 @@
 //     const fetchLoggedInUser = async () => {
 //       try {
 //         const storedUsername = localStorage.getItem("username");
-//         const response = await fetch(`http://localhost:5000/api/registerUser?username=${storedUsername}`);
+//         const response = await fetch(`${API_BASE}/api/registerUser?username=${storedUsername}`);
 //         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 //         const data = await response.json();
 //         setLoggedInUser(data.user);
@@ -174,7 +174,7 @@
 
 //   const fetchContacts = async () => {
 //     try {
-//       const response = await fetch(`http://localhost:5000/api/contacts?owner=${loggedInUser.phone}`);
+//       const response = await fetch(`${API_BASE}/api/contacts?owner=${loggedInUser.phone}`);
 //       if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 //       const data = await response.json();
 //       setContacts(data.contacts);
@@ -187,7 +187,7 @@
 //   const handleAddContact = async (e) => {
 //     e.preventDefault();
 //     try {
-//       const response = await fetch(`http://localhost:5000/api/addContact`, {
+//       const response = await fetch(`${API_BASE}/api/addContact`, {
 //         method: "POST",
 //         headers: {
 //           "Content-Type": "application/json"
@@ -211,7 +211,7 @@
 //   // Handler to remove an existing contact (matches by contactPhone)
 //   const handleRemoveContact = async (contactPhone) => {
 //     try {
-//       const response = await fetch(`http://localhost:5000/api/removeContact`, {
+//       const response = await fetch(`${API_BASE}/api/removeContact`, {
 //         method: "DELETE",
 //         headers: {
 //           "Content-Type": "application/json"
@@ -313,7 +313,7 @@
 //         const fetchLoggedInUser = async () => {
 //             try {
 //                 const storedUsername = localStorage.getItem("username");
-//                 const response = await fetch(`http://localhost:5000/api/registerUser?username=${storedUsername}`);
+//                 const response = await fetch(`${API_BASE}/api/registerUser?username=${storedUsername}`);
 //                 if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 //                 const data = await response.json();
 //                 setLoggedInUser(data.user);
@@ -333,7 +333,7 @@
 
 //     const fetchContacts = async () => {
 //         try {
-//             const response = await fetch(`http://localhost:5000/api/contacts?owner=${loggedInUser.phone}`);
+//             const response = await fetch(`${API_BASE}/api/contacts?owner=${loggedInUser.phone}`);
 //             if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 //             const data = await response.json();
 //             setContacts(data.contacts);
@@ -346,7 +346,7 @@
 //     const handleAddContact = async (e) => {
 //         e.preventDefault();
 //         try {
-//             const response = await fetch(`http://localhost:5000/api/addContact`, {
+//             const response = await fetch(`${API_BASE}/api/addContact`, {
 //                 method: "POST",
 //                 headers: {
 //                     "Content-Type": "application/json"
@@ -373,7 +373,7 @@
 //     // Handler to remove an existing contact (matches by contactPhone)
 //     const handleRemoveContact = async (contactPhone) => {
 //         try {
-//             const response = await fetch(`http://localhost:5000/api/removeContact`, {
+//             const response = await fetch(`${API_BASE}/api/removeContact`, {
 //                 method: "DELETE",
 //                 headers: {
 //                     "Content-Type": "application/json"
@@ -413,7 +413,7 @@
 //     // Handler to save the edited contact
 //     const handleSaveEdit = async () => {
 //         try {
-//             const response = await fetch(`http://localhost:5000/api/updateContact`, {
+//             const response = await fetch(`${API_BASE}/api/updateContact`, {
 //                 method: "PUT",
 //                 headers: {
 //                     "Content-Type": "application/json"
@@ -602,7 +602,7 @@
 //         const fetchLoggedInUser = async () => {
 //             try {
 //                 const storedUsername = localStorage.getItem("username");
-//                 const response = await fetch(`http://localhost:5000/api/registerUser?username=${storedUsername}`);
+//                 const response = await fetch(`${API_BASE}/api/registerUser?username=${storedUsername}`);
 //                 if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 //                 const data = await response.json();
 //                 setLoggedInUser(data.user);
@@ -622,7 +622,7 @@
 
 //     const fetchContacts = async () => {
 //         try {
-//             const response = await fetch(`http://localhost:5000/api/contacts?owner=${loggedInUser.phone}`);
+//             const response = await fetch(`${API_BASE}/api/contacts?owner=${loggedInUser.phone}`);
 //             if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 //             const data = await response.json();
 //             setContacts(data.contacts);
@@ -635,7 +635,7 @@
 //     const handleAddContact = async (e) => {
 //         e.preventDefault();
 //         try {
-//             const response = await fetch(`http://localhost:5000/api/addContact`, {
+//             const response = await fetch(`${API_BASE}/api/addContact`, {
 //                 method: "POST",
 //                 headers: {
 //                     "Content-Type": "application/json"
@@ -662,7 +662,7 @@
 //     // Handler to remove an existing contact (matches by contactPhone)
 //     const handleRemoveContact = async (contactPhone) => {
 //         try {
-//             const response = await fetch(`http://localhost:5000/api/removeContact`, {
+//             const response = await fetch(`${API_BASE}/api/removeContact`, {
 //                 method: "DELETE",
 //                 headers: {
 //                     "Content-Type": "application/json"
@@ -702,7 +702,7 @@
 //     // Handler to save the edited contact
 //     const handleSaveEdit = async () => {
 //         try {
-//             const response = await fetch(`http://localhost:5000/api/updateContact`, {
+//             const response = await fetch(`${API_BASE}/api/updateContact`, {
 //                 method: "PUT",
 //                 headers: {
 //                     "Content-Type": "application/json"
@@ -897,7 +897,7 @@
 //         const fetchLoggedInUser = async () => {
 //             try {
 //                 const storedUsername = localStorage.getItem("username");
-//                 const response = await fetch(`http://localhost:5000/api/registerUser?username=${storedUsername}`);
+//                 const response = await fetch(`${API_BASE}/api/registerUser?username=${storedUsername}`);
 //                 if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 //                 const data = await response.json();
 //                 setLoggedInUser(data.user);
@@ -917,7 +917,7 @@
 
 //     const fetchContacts = async () => {
 //         try {
-//             const response = await fetch(`http://localhost:5000/api/contacts?owner=${loggedInUser.phone}`);
+//             const response = await fetch(`${API_BASE}/api/contacts?owner=${loggedInUser.phone}`);
 //             if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 //             const data = await response.json();
 //             setContacts(data.contacts);
@@ -930,7 +930,7 @@
 //     const handleAddContact = async (e) => {
 //         e.preventDefault();
 //         try {
-//             const response = await fetch(`http://localhost:5000/api/addContact`, {
+//             const response = await fetch(`${API_BASE}/api/addContact`, {
 //                 method: "POST",
 //                 headers: {
 //                     "Content-Type": "application/json"
@@ -957,7 +957,7 @@
 //     // Handler to remove an existing contact (matches by contactPhone)
 //     const handleRemoveContact = async (contactPhone) => {
 //         try {
-//             const response = await fetch(`http://localhost:5000/api/removeContact`, {
+//             const response = await fetch(`${API_BASE}/api/removeContact`, {
 //                 method: "DELETE",
 //                 headers: {
 //                     "Content-Type": "application/json"
@@ -997,7 +997,7 @@
 //     // Handler to save the edited contact
 //     const handleSaveEdit = async () => {
 //         try {
-//             const response = await fetch(`http://localhost:5000/api/updateContact`, {
+//             const response = await fetch(`${API_BASE}/api/updateContact`, {
 //                 method: "PUT",
 //                 headers: {
 //                     "Content-Type": "application/json"
@@ -1183,7 +1183,7 @@
 //             try {
 //                 const storedUsername = localStorage.getItem("username");
 //                 const response = await fetch(
-//                     `http://localhost:5000/api/registerUser?username=${storedUsername}`
+//                     `${API_BASE}/api/registerUser?username=${storedUsername}`
 //                 );
 //                 if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 //                 const data = await response.json();
@@ -1206,7 +1206,7 @@
 //     const fetchContacts = async () => {
 //         try {
 //             const response = await fetch(
-//                 `http://localhost:5000/api/contacts?owner=${loggedInUser.phone}`
+//                 `${API_BASE}/api/contacts?owner=${loggedInUser.phone}`
 //             );
 //             if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 //             const data = await response.json();
@@ -1220,7 +1220,7 @@
 //     const handleAddContact = async (e) => {
 //         e.preventDefault();
 //         try {
-//             const response = await fetch(`http://localhost:5000/api/addContact`, {
+//             const response = await fetch(`${API_BASE}/api/addContact`, {
 //                 method: "POST",
 //                 headers: {
 //                     "Content-Type": "application/json",
@@ -1246,7 +1246,7 @@
 //     // Handler for removing a contact.
 //     const handleRemoveContact = async (contactPhone) => {
 //         try {
-//             const response = await fetch(`http://localhost:5000/api/removeContact`, {
+//             const response = await fetch(`${API_BASE}/api/removeContact`, {
 //                 method: "DELETE",
 //                 headers: {
 //                     "Content-Type": "application/json",
@@ -1286,7 +1286,7 @@
 //     // Handler to save the edited contact.
 //     const handleSaveEdit = async () => {
 //         try {
-//             const response = await fetch(`http://localhost:5000/api/updateContact`, {
+//             const response = await fetch(`${API_BASE}/api/updateContact`, {
 //                 method: "PUT",
 //                 headers: {
 //                     "Content-Type": "application/json",
@@ -1511,7 +1511,7 @@
 //             try {
 //                 const storedUsername = localStorage.getItem("username");
 //                 const response = await fetch(
-//                     `http://localhost:5000/api/registerUser?username=${storedUsername}`
+//                     `${API_BASE}/api/registerUser?username=${storedUsername}`
 //                 );
 //                 if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 //                 const data = await response.json();
@@ -1534,7 +1534,7 @@
 //     const fetchContacts = async () => {
 //         try {
 //             const response = await fetch(
-//                 `http://localhost:5000/api/contacts?owner=${loggedInUser.phone}`
+//                 `${API_BASE}/api/contacts?owner=${loggedInUser.phone}`
 //             );
 //             if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 //             const data = await response.json();
@@ -1548,7 +1548,7 @@
 //     const handleAddContact = async (e) => {
 //         e.preventDefault();
 //         try {
-//             const response = await fetch(`http://localhost:5000/api/addContact`, {
+//             const response = await fetch(`${API_BASE}/api/addContact`, {
 //                 method: "POST",
 //                 headers: {
 //                     "Content-Type": "application/json",
@@ -1574,7 +1574,7 @@
 //     // Handler for removing a contact.
 //     const handleRemoveContact = async (contactPhone) => {
 //         try {
-//             const response = await fetch(`http://localhost:5000/api/removeContact`, {
+//             const response = await fetch(`${API_BASE}/api/removeContact`, {
 //                 method: "DELETE",
 //                 headers: {
 //                     "Content-Type": "application/json",
@@ -1615,7 +1615,7 @@
 //     // Handler to save the edited contact.
 //     const handleSaveEdit = async () => {
 //         try {
-//             const response = await fetch(`http://localhost:5000/api/updateContact`, {
+//             const response = await fetch(`${API_BASE}/api/updateContact`, {
 //                 method: "PUT",
 //                 headers: {
 //                     "Content-Type": "application/json",
@@ -1843,7 +1843,7 @@
 //             try {
 //                 const storedUsername = localStorage.getItem("username");
 //                 const response = await fetch(
-//                     `http://localhost:5000/api/registerUser?username=${storedUsername}`
+//                     `${API_BASE}/api/registerUser?username=${storedUsername}`
 //                 );
 //                 if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 //                 const data = await response.json();
@@ -1866,7 +1866,7 @@
 //     const fetchContacts = async () => {
 //         try {
 //             const response = await fetch(
-//                 `http://localhost:5000/api/contacts?owner=${loggedInUser.phone}`
+//                 `${API_BASE}/api/contacts?owner=${loggedInUser.phone}`
 //             );
 //             if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 //             const data = await response.json();
@@ -1880,7 +1880,7 @@
 //     const handleAddContact = async (e) => {
 //         e.preventDefault();
 //         try {
-//             const response = await fetch(`http://localhost:5000/api/addContact`, {
+//             const response = await fetch(`${API_BASE}/api/addContact`, {
 //                 method: "POST",
 //                 headers: {
 //                     "Content-Type": "application/json",
@@ -1906,7 +1906,7 @@
 //     // Handler for removing a contact.
 //     const handleRemoveContact = async (contactPhone) => {
 //         try {
-//             const response = await fetch(`http://localhost:5000/api/removeContact`, {
+//             const response = await fetch(`${API_BASE}/api/removeContact`, {
 //                 method: "DELETE",
 //                 headers: {
 //                     "Content-Type": "application/json",
@@ -1947,7 +1947,7 @@
 //     // Handler to save the edited contact.
 //     const handleSaveEdit = async () => {
 //         try {
-//             const response = await fetch(`http://localhost:5000/api/updateContact`, {
+//             const response = await fetch(`${API_BASE}/api/updateContact`, {
 //                 method: "PUT",
 //                 headers: {
 //                     "Content-Type": "application/json",
@@ -2190,7 +2190,7 @@
 //             try {
 //                 const storedUsername = localStorage.getItem("username");
 //                 const response = await fetch(
-//                     `http://localhost:5000/api/registerUser?username=${storedUsername}`
+//                     `${API_BASE}/api/registerUser?username=${storedUsername}`
 //                 );
 //                 if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 //                 const data = await response.json();
@@ -2213,7 +2213,7 @@
 //     const fetchContacts = async () => {
 //         try {
 //             const response = await fetch(
-//                 `http://localhost:5000/api/contacts?owner=${loggedInUser.phone}`
+//                 `${API_BASE}/api/contacts?owner=${loggedInUser.phone}`
 //             );
 //             if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 //             const data = await response.json();
@@ -2227,7 +2227,7 @@
 //     const handleAddContact = async (e) => {
 //         e.preventDefault();
 //         try {
-//             const response = await fetch(`http://localhost:5000/api/addContact`, {
+//             const response = await fetch(`${API_BASE}/api/addContact`, {
 //                 method: "POST",
 //                 headers: {
 //                     "Content-Type": "application/json",
@@ -2253,7 +2253,7 @@
 //     // Handler for removing a contact.
 //     const handleRemoveContact = async (contactPhone) => {
 //         try {
-//             const response = await fetch(`http://localhost:5000/api/removeContact`, {
+//             const response = await fetch(`${API_BASE}/api/removeContact`, {
 //                 method: "DELETE",
 //                 headers: {
 //                     "Content-Type": "application/json",
@@ -2294,7 +2294,7 @@
 //     // Handler to save the edited contact.
 //     const handleSaveEdit = async () => {
 //         try {
-//             const response = await fetch(`http://localhost:5000/api/updateContact`, {
+//             const response = await fetch(`${API_BASE}/api/updateContact`, {
 //                 method: "PUT",
 //                 headers: {
 //                     "Content-Type": "application/json",
@@ -2546,7 +2546,7 @@
 //       try {
 //         const storedUsername = localStorage.getItem("username");
 //         const response = await fetch(
-//           `http://localhost:5000/api/registerUser?username=${storedUsername}`
+//           `${API_BASE}/api/registerUser?username=${storedUsername}`
 //         );
 //         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 //         const data = await response.json();
@@ -2569,7 +2569,7 @@
 //   const fetchContacts = async () => {
 //     try {
 //       const response = await fetch(
-//         `http://localhost:5000/api/contacts?owner=${loggedInUser.phone}`
+//         `${API_BASE}/api/contacts?owner=${loggedInUser.phone}`
 //       );
 //       if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 //       const data = await response.json();
@@ -2583,7 +2583,7 @@
 //   const handleAddContact = async (e) => {
 //     e.preventDefault();
 //     try {
-//       const response = await fetch(`http://localhost:5000/api/addContact`, {
+//       const response = await fetch(`${API_BASE}/api/addContact`, {
 //         method: "POST",
 //         headers: {
 //           "Content-Type": "application/json",
@@ -2609,7 +2609,7 @@
 //   // Handler for removing a contact.
 //   const handleRemoveContact = async (contactPhone) => {
 //     try {
-//       const response = await fetch(`http://localhost:5000/api/removeContact`, {
+//       const response = await fetch(`${API_BASE}/api/removeContact`, {
 //         method: "DELETE",
 //         headers: {
 //           "Content-Type": "application/json",
@@ -2650,7 +2650,7 @@
 //   // Handler to save the edited contact.
 //   const handleSaveEdit = async () => {
 //     try {
-//       const response = await fetch(`http://localhost:5000/api/updateContact`, {
+//       const response = await fetch(`${API_BASE}/api/updateContact`, {
 //         method: "PUT",
 //         headers: {
 //           "Content-Type": "application/json",
@@ -2905,7 +2905,7 @@
 //       try {
 //         const storedUsername = localStorage.getItem("username");
 //         const response = await fetch(
-//           `http://localhost:5000/api/registerUser?username=${storedUsername}`
+//           `${API_BASE}/api/registerUser?username=${storedUsername}`
 //         );
 //         if (!response.ok)
 //           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -2938,7 +2938,7 @@
 //   const fetchContacts = async () => {
 //     try {
 //       const response = await fetch(
-//         `http://localhost:5000/api/contacts?owner=${loggedInUser.phone}`
+//         `${API_BASE}/api/contacts?owner=${loggedInUser.phone}`
 //       );
 //       if (!response.ok)
 //         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -2953,7 +2953,7 @@
 //   const handleAddContact = async (e) => {
 //     e.preventDefault();
 //     try {
-//       const response = await fetch(`http://localhost:5000/api/addContact`, {
+//       const response = await fetch(`${API_BASE}/api/addContact`, {
 //         method: "POST",
 //         headers: {
 //           "Content-Type": "application/json",
@@ -2983,7 +2983,7 @@
 //   // Handler for removing a contact.
 //   const handleRemoveContact = async (contactPhone) => {
 //     try {
-//       const response = await fetch(`http://localhost:5000/api/removeContact`, {
+//       const response = await fetch(`${API_BASE}/api/removeContact`, {
 //         method: "DELETE",
 //         headers: {
 //           "Content-Type": "application/json",
@@ -3024,7 +3024,7 @@
 //   // Handler to save the edited contact.
 //   const handleSaveEdit = async () => {
 //     try {
-//       const response = await fetch(`http://localhost:5000/api/updateContact`, {
+//       const response = await fetch(`${API_BASE}/api/updateContact`, {
 //         method: "PUT",
 //         headers: {
 //           "Content-Type": "application/json",
@@ -3305,7 +3305,7 @@
 //             try {
 //                 const storedUsername = localStorage.getItem("username");
 //                 const response = await fetch(
-//                     `http://localhost:5000/api/registerUser?username=${storedUsername}`
+//                     `${API_BASE}/api/registerUser?username=${storedUsername}`
 //                 );
 //                 if (!response.ok)
 //                     throw new Error(`HTTP error! Status: ${response.status}`);
@@ -3338,7 +3338,7 @@
 //     const fetchContacts = async () => {
 //         try {
 //             const response = await fetch(
-//                 `http://localhost:5000/api/contacts?owner=${loggedInUser.phone}`
+//                 `${API_BASE}/api/contacts?owner=${loggedInUser.phone}`
 //             );
 //             if (!response.ok)
 //                 throw new Error(`HTTP error! Status: ${response.status}`);
@@ -3353,7 +3353,7 @@
 //     const handleAddContact = async (e) => {
 //         e.preventDefault();
 //         try {
-//             const response = await fetch(`http://localhost:5000/api/addContact`, {
+//             const response = await fetch(`${API_BASE}/api/addContact`, {
 //                 method: "POST",
 //                 headers: {
 //                     "Content-Type": "application/json",
@@ -3383,7 +3383,7 @@
 //     // Handler for removing a contact.
 //     const handleRemoveContact = async (contactPhone) => {
 //         try {
-//             const response = await fetch(`http://localhost:5000/api/removeContact`, {
+//             const response = await fetch(`${API_BASE}/api/removeContact`, {
 //                 method: "DELETE",
 //                 headers: {
 //                     "Content-Type": "application/json",
@@ -3424,7 +3424,7 @@
 //     // Handler to save the edited contact.
 //     const handleSaveEdit = async () => {
 //         try {
-//             const response = await fetch(`http://localhost:5000/api/updateContact`, {
+//             const response = await fetch(`${API_BASE}/api/updateContact`, {
 //                 method: "PUT",
 //                 headers: {
 //                     "Content-Type": "application/json",
@@ -3680,6 +3680,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';  // New import to grab query params
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 const AddUser = ({ onRemove }) => {
     // Retrieve any query parameters from the URL.
@@ -3712,7 +3713,7 @@ const AddUser = ({ onRemove }) => {
             try {
                 const storedUsername = localStorage.getItem("username");
                 const response = await fetch(
-                    `http://localhost:5000/api/registerUser?username=${storedUsername}`
+                    `${API_BASE}/api/registerUser?username=${storedUsername}`
                 );
                 if (!response.ok)
                     throw new Error(`HTTP error! Status: ${response.status}`);
@@ -3745,7 +3746,7 @@ const AddUser = ({ onRemove }) => {
     const fetchContacts = async () => {
         try {
             const response = await fetch(
-                `http://localhost:5000/api/contacts?owner=${loggedInUser.phone}`
+                `${API_BASE}/api/contacts?owner=${loggedInUser.phone}`
             );
             if (!response.ok)
                 throw new Error(`HTTP error! Status: ${response.status}`);
@@ -3760,7 +3761,7 @@ const AddUser = ({ onRemove }) => {
     const handleAddContact = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch(`http://localhost:5000/api/addContact`, {
+            const response = await fetch(`${API_BASE}/api/addContact`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -3790,7 +3791,7 @@ const AddUser = ({ onRemove }) => {
     // Handler for removing a contact.
     const handleRemoveContact = async (contactPhone) => {
         try {
-            const response = await fetch(`http://localhost:5000/api/removeContact`, {
+            const response = await fetch(`${API_BASE}/api/removeContact`, {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
@@ -3835,7 +3836,7 @@ const AddUser = ({ onRemove }) => {
     // Handler to save the edited contact.
     const handleSaveEdit = async () => {
         try {
-            const response = await fetch(`http://localhost:5000/api/updateContact`, {
+            const response = await fetch(`${API_BASE}/api/updateContact`, {
                 method: "PUT",
                 headers: {
                     "Content-Type": "application/json",
@@ -4093,3 +4094,4 @@ const AddUser = ({ onRemove }) => {
 };
 
 export default AddUser;
+

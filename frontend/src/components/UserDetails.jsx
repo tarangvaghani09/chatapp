@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Update from "./Update";
 import { GoArrowLeft } from "react-icons/go";
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 const UserDetails = ({ user, closeOverlayProfile }) => {
   const [showUpdate, setShowUpdate] = useState(false);
@@ -17,7 +18,7 @@ const UserDetails = ({ user, closeOverlayProfile }) => {
     if (newImage) formData.append("profilePicture", newImage);
     if (removeImage) formData.append("removeProfilePicture", "true");
     try {
-      const response = await fetch("http://localhost:5000/api/updateprofile", {
+      const response = await fetch(API_BASE + "/api/updateprofile", {
         method: "PUT",
         body: formData,
       });
@@ -40,7 +41,7 @@ const UserDetails = ({ user, closeOverlayProfile }) => {
           <GoArrowLeft size={35} className="max-[668px]:size-8" />
         </div>
         <img
-          src={`http://localhost:5000/${user.profilePicture}`}
+          src={`${API_BASE}/${user.profilePicture}`}
           alt="Profile"
           className="max-[668px]:w-[160px] max-[668px]:h-[160px] w-[200px] h-[200px] rounded-full object-cover object-center mb-5"
         />
@@ -60,7 +61,7 @@ const UserDetails = ({ user, closeOverlayProfile }) => {
       </div>
       {showUpdate && user && (
         <Update
-          imageUrl={`http://localhost:5000/${user.profilePicture}`}
+          imageUrl={`${API_BASE}/${user.profilePicture}`}
           username={user.username}
           phone={user.phone}
           closeOverlay={() => setShowUpdate(false)}
@@ -80,3 +81,4 @@ const UserDetails = ({ user, closeOverlayProfile }) => {
 };
 
 export default UserDetails;
+

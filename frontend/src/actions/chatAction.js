@@ -1,5 +1,6 @@
 // actions/chatAction.js
 import axios from "axios";
+const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
 // import { useNavigate } from "react-router-dom";
 
 // export const fetchChats = () => async (dispatch) => {
@@ -7,7 +8,7 @@ import axios from "axios";
 //     dispatch({ type: "FETCH_CHATS_REQUEST" });
 
 //     const username = localStorage.getItem("username");
-//     const { data } = await axios.get(`http://localhost:5000/api/chats/${username}`);
+//     const { data } = await axios.get(`${API_BASE}/api/chats/${username}`);
 
 //     dispatch({
 //       type: "FETCH_CHATS_SUCCESS",
@@ -41,7 +42,7 @@ export const fetchChats = (navigate) => async (dispatch) => {
       return;
     }
 
-    const response = await axios.get("http://localhost:5000/api/getChats", {
+    const response = await axios.get(API_BASE + "/api/getChats", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -61,7 +62,7 @@ export const addChat = (chat) => async (dispatch) => {
   dispatch({ type: "LOADING" });
   try {
     console.log("Sending chat:", chat);
-    const response = await axios.post("http://localhost:5000/api/chats", chat);
+    const response = await axios.post(API_BASE + "/api/chats", chat);
     console.log("Chat response:", response.data);
     dispatch({ type: "ADD_CHAT", payload: response.data });
   } catch (error) {
@@ -76,7 +77,7 @@ export const addChat = (chat) => async (dispatch) => {
 // export const deleteChat = (id, user, deleteForBoth) => async (dispatch) => {
 //   dispatch({ type: "LOADING" });
 //   try {
-//     await axios.post(`http://localhost:5000/api/chatsDelete/${id}`, {
+//     await axios.post(`${API_BASE}/api/chatsDelete/${id}`, {
 //       user,
 //       deleteForBoth,
 //     });
@@ -94,7 +95,7 @@ export const addChat = (chat) => async (dispatch) => {
 export const deleteChat = (id, user, deleteForBoth) => async (dispatch) => {
   dispatch({ type: "LOADING" });
   try {
-    await axios.post(`http://localhost:5000/api/chatsDelete/${id}`, {
+    await axios.post(`${API_BASE}/api/chatsDelete/${id}`, {
       user,
       deleteForBoth,
     });
@@ -123,4 +124,5 @@ export const toggleTrendChat = (isOpen) => (dispatch) => {
 export const toggleAddContactChat = (isOpen) => (dispatch) => {
   dispatch({ type: "TOGGLE_ADDCONTACT_CHAT", payload: isOpen });
 };
+
 
