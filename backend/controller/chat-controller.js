@@ -229,7 +229,7 @@ const register = async (req, res) => {
     const defaultProfilePicture = "../uploads/d.webp";
 
     // Assign role: admin if phone matches, else user
-    const role = phone === "9020560570" ? "admin" : "user";
+    const role = phone === "1234567891" ? "admin" : "user";
 
     const newUser = new Register({
       username,
