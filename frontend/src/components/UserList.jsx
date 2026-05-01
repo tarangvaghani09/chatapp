@@ -4022,7 +4022,10 @@ const UserList = ({ onSelectUser, onCloseUserList, hideUserList, onClearChat }) 
     <>
       <div className={`w-full h-full bg-[#f4faf6] overflow-y-auto ${hideUserList ? "hidden" : ""}`}>
         {/* Header */}
-        <div className="sticky top-0 z-40 bg-white p-4 pl-16 md:pl-4 shadow-md flex justify-between items-center">
+        <div
+          className="sticky top-0 z-40 bg-white pl-16 pr-4 pb-3 pt-4 md:pl-4 shadow-md flex justify-between items-center min-h-[72px]"
+          style={{ paddingTop: "calc(env(safe-area-inset-top) + 0.75rem)" }}
+        >
           <h2 className="text-xl font-semibold text-black">Chats</h2>
           {/* <button
             onClick={onCloseUserList}

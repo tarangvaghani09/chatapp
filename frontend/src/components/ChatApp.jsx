@@ -486,7 +486,7 @@ const ChatPage = () => {
       {isMobile && !mobileSidebarOpen && !selectedUser && (
         <button
           onClick={() => setMobileSidebarOpen(true)}
-          className="fixed top-3 left-3 z-[70] bg-white p-2 rounded-lg shadow border border-gray-200"
+          className="absolute top-3 left-3 z-50 bg-white p-2 rounded-lg shadow border border-gray-200"
           aria-label="Open sidebar"
         >
           <FiMenu size={20} />

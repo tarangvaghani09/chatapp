@@ -1015,7 +1015,7 @@ const Chat = ({ selectedUser, onToggleUserList }) => {
         </div>
       </div>
 
-      <div className="h-[60vh] sm:h-[70vh] md:h-[76vh] overflow-y-auto mb-5 flex flex-col pl-3 sm:pl-5 pr-1 mt-[60px] sm:mt-[70px]" ref={chatContainerRef}>
+      <div className="h-[60vh] sm:h-[70vh] md:h-[76vh] overflow-y-auto mb-5 pb-24 md:pb-4 flex flex-col pl-3 sm:pl-5 pr-1 mt-[60px] sm:mt-[70px]" ref={chatContainerRef}>
         {filteredChats.map((chat) => {
           const loggedInUser = localStorage.getItem("username");
           const isSender = chat.sender === loggedInUser;
@@ -1192,7 +1192,8 @@ const Chat = ({ selectedUser, onToggleUserList }) => {
             sendMessage();
           }
         }}
-        className="bg-white flex flex-row flex-nowrap items-center gap-1.5 p-2 absolute bottom-0 w-full sm:w-[100%]"
+        className="bg-white flex flex-row flex-nowrap items-center gap-1.5 p-2 fixed md:absolute bottom-0 left-0 right-0 w-full sm:w-[100%] z-30"
+        style={{ paddingBottom: "calc(env(safe-area-inset-bottom) + 0.5rem)" }}
       >
         {/* Emoji Button */}
         <button
