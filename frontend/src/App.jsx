@@ -63,12 +63,11 @@
 
 
 
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import ChatApp from "./components/ChatApp";
-import PromptAndResponseApp from "./components/PromptAndResponseApp";
 import { Provider } from "react-redux";
 import store from "./store";
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -77,9 +76,6 @@ import AdminDashboard from "./components/AdminDashboard";
 // import "./App.css";
 
 function App() {
-  const [isAiChatOpen, setIsAiChatOpen] = useState(false);
-  const [selectedUser, setSelectedUser] = useState(null);
-
   return (
     <Provider store={store}>
       <BrowserRouter>
@@ -96,28 +92,36 @@ function App() {
             }
           />
 
-          {/* Protected Chat Route */}
+          {/* Protected chat routes */}
           <Route
             path="/chat"
             element={
               <ProtectedRoute
-                element={
-                  <ChatApp
-                    isAiChatOpen={isAiChatOpen}
-                    setIsAiChatOpen={setIsAiChatOpen}
-                    setSelectedUser={setSelectedUser}
-                  />
-                }
+                element={<ChatApp />}
               />
             }
           />
-
-          {/* AI Chat Page (protected if needed) */}
           <Route
-            path="/ask"
+            path="/aichat"
             element={
               <ProtectedRoute
-                element={<PromptAndResponseApp user={selectedUser} />}
+                element={<ChatApp />}
+              />
+            }
+          />
+          <Route
+            path="/privatechat"
+            element={
+              <ProtectedRoute
+                element={<ChatApp />}
+              />
+            }
+          />
+          <Route
+            path="/newcontact"
+            element={
+              <ProtectedRoute
+                element={<ChatApp />}
               />
             }
           />

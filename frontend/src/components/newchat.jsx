@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import io from "socket.io-client";
-import { FaPaperclip, FaCheck, FaCheckDouble, FaRupeeSign } from "react-icons/fa";
+import { FaPaperclip, FaCheck, FaCheckDouble } from "react-icons/fa";
 import { GoDownload } from "react-icons/go";
 import { fetchChats, deleteChat } from "../actions/chatAction";
 import Update from "./Update";
@@ -36,9 +36,7 @@ const Chat = ({ selectedUser, onToggleUserList }) => {
   const imageInputRef = useRef(null);
   const deleteOptionsRef = useRef(null);
   const [showFullView, setShowFullView] = useState(false);
-  const navigate = useNavigate();
-  const [isPaying, setIsPaying] = useState(false);
-  const [hideUserList, setHideUserList] = useState(false);
+  const navigate = useNavigate();  const [hideUserList, setHideUserList] = useState(false);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const emojiPickerRef = useRef(null);
   const [showUnknownPopup, setShowUnknownPopup] = useState(false);
@@ -154,55 +152,6 @@ const Chat = ({ selectedUser, onToggleUserList }) => {
       console.error("Error unblocking user:", error);
     }
   };
-
-  const handlePayment = async () => {
-    setIsPaying(true);
-    try {
-      const razorpayScript = await loadRazorpayScript();
-      if (!razorpayScript) {
-        alert("Failed to load Razorpay. Please check your internet connection.");
-        setIsPaying(false);
-        return;
-      }
-      const { data } = await axios.post(API_BASE + "/api/payment", {
-        amount: 100,
-      });
-      const options = {
-        key: "rzp_test_CJUUypRoLbw1c2",
-        amount: data.order.amount,
-        currency: "INR",
-        name: "Chat App",
-        description: "AI Chat Subscription",
-        order_id: data.order.id,
-        handler: function (response) {
-          alert("Payment Successful! Payment ID: " + response.razorpay_payment_id);
-        },
-        theme: { color: "#3399cc" },
-      };
-      const razorpay = new window.Razorpay(options);
-      razorpay.open();
-    } catch (error) {
-      console.error("Payment Error:", error);
-      alert("Payment failed. Try again.");
-    } finally {
-      setIsPaying(false);
-    }
-  };
-
-  const loadRazorpayScript = () => {
-    return new Promise((resolve) => {
-      if (window.Razorpay) {
-        resolve(true);
-        return;
-      }
-      const script = document.createElement("script");
-      script.src = "https://checkout.razorpay.com/v1/checkout.js";
-      script.onload = () => resolve(true);
-      script.onerror = () => resolve(false);
-      document.body.appendChild(script);
-    });
-  };
-
   const openExportModal = () => setShowExportModal(true);
   const closeExportModal = () => {
     setShowExportModal(false);
@@ -908,20 +857,7 @@ const Chat = ({ selectedUser, onToggleUserList }) => {
           className={`max-[500px]:px-1 max-[668px]:px-2.5 max-[500px]:mr-0 max-[500px]:ml-1.5 mr-2 ml-2.5 h-9 py-2 px-4 rounded-lg cursor-pointer flex items-center transition-colors duration-300 ${!message.trim() ? "bg-gray-200 text-gray-400" : "bg-blue-600 text-white"}`}
         >
           <MdGTranslate size={20} />
-        </button>
-        {!editingMessage && <button
-          type="button"
-          onClick={handlePayment}
-          disabled={isPaying}
-          className="max-[668px]:text-xs ml-2.5 py-2.5 px-3 bg-blue-600 rounded-lg text-white cursor-pointer flex items-center max-[500px]:px-1.5 max-[500px]:ml-1"
-        >
-          {isPaying ? (
-            <ReactLoading type="spin" color="white" height={16} width={14.5} />
-          ) : (
-            <FaRupeeSign />
-          )}
-        </button>}
-        {editingMessage && (
+        </button>`r`n        {editingMessage && (
           <button
             type="button"
             onClick={() => {
@@ -1088,6 +1024,7 @@ const Chat = ({ selectedUser, onToggleUserList }) => {
 };
 
 export default Chat;
+
 
 
 

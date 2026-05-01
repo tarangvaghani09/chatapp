@@ -7,16 +7,9 @@ const Login = require("../model/login-model");
 const Group = require("../model/group-model");
 const User = require("../model/user-model");
 const upload = require("../middleware/upload-middleware");
-const Razorpay = require("razorpay");
 const twilio = require("twilio");
 const Contact = require("../model/contacts-model");
 const axios = require('axios');
-
-// Initialize Razorpay instance
-const razorpay = new Razorpay({
-  key_id: process.env.RAZORPAY_KEY_ID,
-  key_secret: process.env.RAZORPAY_KEY_SECRET,
-});
 
 // API routes
 // const secretkey = "tarang";
@@ -882,22 +875,6 @@ const getChats = async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
-
-const paymentAdd = async (req, res) => {
-  try {
-    const options = {
-      amount: req.body.amount * 100, // Convert to paise
-      currency: "INR",
-      receipt: `receipt_${Date.now()}`,
-    };
-
-    const order = await razorpay.orders.create(options);
-    res.json({ success: true, order });
-  } catch (error) {
-    res.status(500).json({ success: false, message: error.message });
-  }
-};
-
 // Twilio Config
 const accountSid = process.env.TWILIO_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
@@ -2229,7 +2206,6 @@ module.exports = {
   latestMessage,
   registerUser,
   updateprofile,
-  paymentAdd,
   sendOtp,
   verifyOtp,
   addContact,
@@ -2251,3 +2227,4 @@ module.exports = {
   deleteUser,
   getUserActivity
 };
+

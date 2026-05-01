@@ -45,8 +45,6 @@ router.route("/editChat/:id").put(chatcontrollers.editChats);
 
 router.route("/chatsDelete/:id").post(chatcontrollers.chatsDelete);
 
-router.route("/payment").post(chatcontrollers.paymentAdd);
-
 router.route("/send-otp").post(chatcontrollers.sendOtp);
 
 router.route("/verify-otp").post(chatcontrollers.verifyOtp);

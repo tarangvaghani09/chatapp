@@ -423,16 +423,17 @@ import React, { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 import UserList from "./UserList";
 import Chat from "./Chat";
-import { useSelector } from "react-redux";
 import PromptAndResponseApp from "./PromptAndResponseApp";
 import AnonymousChat from "./AnonymousChat";
-import Trend from "./Trend";
 import AddUser from "./AddUser";
 import { useLocation } from "react-router-dom";
+import { FiMenu } from "react-icons/fi";
+import { AiOutlineClose } from "react-icons/ai";
 
 const ChatPage = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
@@ -443,10 +444,10 @@ const ChatPage = () => {
 
   const handleSelectUser = (user) => setSelectedUser(user);
 
-  const isAiChatOpen = useSelector((s) => s.chat.isAiChatOpen);
-  const isAnonymousChatOpen = useSelector((s) => s.chat.isAnonymousChatOpen);
-  const isTrendChatOpen = useSelector((s) => s.chat.isTrendChatOpen);
-  const isAddContactChatOpen = useSelector((s) => s.chat.isAddContactChatOpen);
+  const path = location.pathname.toLowerCase();
+  const isAiRoute = path === "/aichat";
+  const isPrivateRoute = path === "/privatechat";
+  const isAddContactRoute = path === "/newcontact";
 
   const queryParams = new URLSearchParams(location.search);
   const phoneParam = queryParams.get("phone");
@@ -469,18 +470,59 @@ const ChatPage = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (!isMobile) {
+      setMobileSidebarOpen(false);
+    }
+  }, [isMobile]);
+
+  useEffect(() => {
+    setMobileSidebarOpen(false);
+  }, [location.pathname]);
+
   return (
-    <div className="chat-page-container flex h-screen bg-gray-50 overflow-hidden">
-      {/* Sidebar */}
-      {(!isMobile || (isMobile && !selectedUser)) && (
-        <div className={`${isMobile ? "w-[20%]" : "w-[5%]"} border-r border-gray-300 overflow-y-auto`}>
+    <div className="chat-page-container flex h-screen bg-[#f4faf6] overflow-hidden">
+      {/* Mobile hamburger */}
+      {isMobile && !mobileSidebarOpen && !selectedUser && (
+        <button
+          onClick={() => setMobileSidebarOpen(true)}
+          className="fixed top-3 left-3 z-[70] bg-white p-2 rounded-lg shadow border border-gray-200"
+          aria-label="Open sidebar"
+        >
+          <FiMenu size={20} />
+        </button>
+      )}
+
+      {/* Sidebar desktop */}
+      {!isMobile && (
+        <div className="w-20 shrink-0 border-r border-gray-300 overflow-y-auto overflow-x-hidden">
           <Sidebar />
         </div>
       )}
 
-      {/* Anonymous session: ONLY welcome (full width) or AnonymousChat when toggled */}
+      {/* Sidebar mobile overlay */}
+      {isMobile && mobileSidebarOpen && (
+        <>
+          <div
+            className="fixed inset-0 bg-black/30 z-40"
+            onClick={() => setMobileSidebarOpen(false)}
+          />
+          <div className="fixed inset-0 z-50 bg-[#f4faf6] border-r border-gray-300 overflow-y-auto">
+            <button
+              onClick={() => setMobileSidebarOpen(false)}
+              className="absolute top-3 right-3 bg-white p-2 rounded-lg shadow border border-gray-200"
+              aria-label="Close sidebar"
+            >
+              <AiOutlineClose size={18} />
+            </button>
+            <Sidebar />
+          </div>
+        </>
+      )}
+
+      {/* Anonymous session: ONLY welcome (full width) unless /privatechat */}
       {isAnonymousMode ? (
-        isAnonymousChatOpen ? (
+        isPrivateRoute ? (
           <div className="w-full flex justify-center items-center bg-gray-100">
             <AnonymousChat />
           </div>
@@ -492,19 +534,15 @@ const ChatPage = () => {
       ) : (
         // Logged-in session: everything accessible
         <>
-          {isAnonymousChatOpen ? (
+          {isPrivateRoute ? (
             <div className="w-full flex justify-center items-center bg-gray-100">
               <AnonymousChat />
             </div>
-          ) : isTrendChatOpen ? (
-            <div className="w-full flex justify-center items-center bg-gray-100">
-              <Trend />
-            </div>
-          ) : isAddContactChatOpen || phoneParam ? (
+          ) : isAddContactRoute || phoneParam ? (
             <div className="w-full flex justify-center items-center bg-gray-100">
               <AddUser onRemove={() => setSelectedUser(null)} />
             </div>
-          ) : isAiChatOpen ? (
+          ) : isAiRoute ? (
             <div className={`${isMobile ? "w-full" : "w-[95%]"} overflow-hidden bg-green-100`}>
               <PromptAndResponseApp />
             </div>
@@ -512,7 +550,7 @@ const ChatPage = () => {
             <>
               {isMobile ? (
                 !selectedUser ? (
-                  <div className="w-[80%]">
+                  <div className="w-full">
                     <UserList onSelectUser={handleSelectUser} />
                   </div>
                 ) : (

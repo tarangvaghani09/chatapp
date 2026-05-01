@@ -3897,7 +3897,7 @@ const AddUser = ({ onRemove }) => {
     const contactsVisible = searchQuery.trim() !== "" || showContacts;
 
     return (
-        <div className="max-w-2xl mx-auto p-8 bg-gradient-to-br from-blue-100 to-white rounded-2xl shadow-2xl overflow-y-auto h-[86vh] [&::-webkit-scrollbar]:w-1.5
+        <div className="w-full max-w-2xl mx-auto p-4 sm:p-8 bg-gradient-to-br from-blue-100 to-white rounded-2xl shadow-2xl overflow-y-auto h-[88vh] sm:h-[86vh] [&::-webkit-scrollbar]:w-1.5
     [&::-webkit-scrollbar-track]:bg-gray-200
     [&::-webkit-scrollbar-thumb]:bg-green-50
     [&::-webkit-scrollbar-thumb]:rounded-full">
@@ -3913,7 +3913,7 @@ const AddUser = ({ onRemove }) => {
                 </div>
             )}
             {/* Always display the top header and global message */}
-            <h2 className="text-4xl font-extrabold text-center text-blue-800 mb-8 drop-shadow-md">
+            <h2 className="text-3xl sm:text-4xl font-extrabold text-center text-blue-800 mb-6 sm:mb-8 drop-shadow-md">
                 Add New Contact
             </h2>
             {message && (
@@ -3921,20 +3921,20 @@ const AddUser = ({ onRemove }) => {
             )}
 
             {/* Search Input */}
-            <div className="mb-8">
+            <div className="mb-6 sm:mb-8">
                 <input
                     type="text"
                     value={searchQuery}
                     onChange={handleSearchChange}
                     placeholder="Search contacts..."
-                    className="w-full border border-blue-300 rounded-full py-3 px-5 text-lg focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-sm"
+                    className="w-full border border-blue-300 rounded-full py-2.5 sm:py-3 px-4 sm:px-5 text-base sm:text-lg focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-sm"
                 />
             </div>
 
             {/* Add New Contact Form */}
-            <form onSubmit={handleAddContact} className="space-y-6">
+            <form onSubmit={handleAddContact} className="space-y-4 sm:space-y-6">
                 <div>
-                    <label className="block mb-2 text-lg font-semibold text-gray-700">
+                    <label className="block mb-2 text-base sm:text-lg font-semibold text-gray-700">
                         Username:<span className="text-red-500">*</span>
                     </label>
                     <input
@@ -3943,11 +3943,11 @@ const AddUser = ({ onRemove }) => {
                         onChange={(e) => setContactUsername(e.target.value)}
                         placeholder="Contact username"
                         required
-                        className="w-full border border-gray-300 rounded-lg py-3 px-4 text-base focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-200 shadow-sm"
+                        className="w-full border border-gray-300 rounded-lg py-2.5 sm:py-3 px-3 sm:px-4 text-base focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-200 shadow-sm"
                     />
                 </div>
                 <div>
-                    <label className="block mb-2 text-lg font-semibold text-gray-700">
+                    <label className="block mb-2 text-base sm:text-lg font-semibold text-gray-700">
                         Mobile Number:<span className="text-red-500">*</span>
                     </label>
                     <input
@@ -3956,12 +3956,12 @@ const AddUser = ({ onRemove }) => {
                         onChange={(e) => setContactPhone(e.target.value)}
                         placeholder="Contact phone number"
                         required
-                        className="w-full border border-gray-300 rounded-lg py-3 px-4 text-base focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-200 shadow-sm"
+                        className="w-full border border-gray-300 rounded-lg py-2.5 sm:py-3 px-3 sm:px-4 text-base focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-200 shadow-sm"
                     />
                 </div>
                 <button
                     type="submit"
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-full transition duration-300 shadow-lg cursor-pointer"
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 sm:py-3 px-4 rounded-full transition duration-300 shadow-lg cursor-pointer"
                 >
                     Add Contact
                 </button>

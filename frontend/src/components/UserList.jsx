@@ -3761,6 +3761,7 @@ const UserList = ({ onSelectUser, onCloseUserList, hideUserList, onClearChat }) 
   const [latestMessages, setLatestMessages] = useState({});
   const [unreadMessages, setUnreadMessages] = useState({});
   const [loggedInUser, setLoggedInUser] = useState(null);
+  const [loadingContacts, setLoadingContacts] = useState(true);
   const [activeIndex, setActiveIndex] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [overlayImage, setOverlayImage] = useState(null);
@@ -3775,12 +3776,17 @@ const UserList = ({ onSelectUser, onCloseUserList, hideUserList, onClearChat }) 
     const fetchLoggedInUser = async () => {
       try {
         const storedUsername = localStorage.getItem("username");
+        if (!storedUsername) {
+          setLoadingContacts(false);
+          return;
+        }
         const res = await fetch(`${API_BASE}/api/registerUser?username=${storedUsername}`);
         if (!res.ok) throw new Error(res.statusText);
         const { user } = await res.json();
         setLoggedInUser(user);
       } catch (err) {
         console.error("Error fetching logged-in user:", err);
+        setLoadingContacts(false);
       }
     };
     fetchLoggedInUser();
@@ -3790,6 +3796,7 @@ const UserList = ({ onSelectUser, onCloseUserList, hideUserList, onClearChat }) 
   useEffect(() => {
     if (!loggedInUser) return;
     const fetchContacts = async () => {
+      setLoadingContacts(true);
       try {
         // 1) contacts endpoint returns both saved and unknown
         const res = await fetch(`${API_BASE}/api/contacts?owner=${loggedInUser.phone}`);
@@ -3821,6 +3828,8 @@ const UserList = ({ onSelectUser, onCloseUserList, hideUserList, onClearChat }) 
         setUsers(saved);
       } catch (err) {
         console.error("Error fetching contacts:", err);
+      } finally {
+        setLoadingContacts(false);
       }
     };
     fetchContacts();
@@ -4011,10 +4020,10 @@ const UserList = ({ onSelectUser, onCloseUserList, hideUserList, onClearChat }) 
 
   return (
     <>
-      <div className={`w-full h-full bg-gray-100 overflow-y-auto ${hideUserList ? "hidden" : ""}`}>
+      <div className={`w-full h-full bg-[#f4faf6] overflow-y-auto ${hideUserList ? "hidden" : ""}`}>
         {/* Header */}
-        <div className="sticky top-0 bg-white p-4 shadow-md flex justify-between items-center">
-          <h2 className="text-xl font-semibold text-gray-800">Chats</h2>
+        <div className="sticky top-0 z-40 bg-green-600 p-4 pl-16 md:pl-4 shadow-md flex justify-between items-center">
+          <h2 className="text-xl font-semibold text-white">Chats</h2>
           {/* <button
             onClick={onCloseUserList}
             className="text-gray-600 hover:text-gray-800 transition-colors"
@@ -4035,11 +4044,17 @@ const UserList = ({ onSelectUser, onCloseUserList, hideUserList, onClearChat }) 
         </div>
 
         {/* Contact List */}
+        {loadingContacts ? (
+          <div className="flex items-center justify-center py-8">
+            <div className="h-6 w-6 rounded-full border-2 border-green-600 border-t-transparent animate-spin" />
+            <span className="ml-3 text-sm text-gray-600">Loading contacts...</span>
+          </div>
+        ) : (
         <ul className="divide-y divide-gray-200">
           {filtered.map((user) => (
             <li
               key={user.phone}
-              className={`flex items-center p-3 hover:bg-green-50 transition-colors ${activeIndex === user.phone ? "bg-green-100" : ""}`}
+              className={`flex items-center p-3 hover:bg-green-100 transition-colors cursor-pointer ${activeIndex === user.phone ? "bg-green-200" : ""}`}
               onClick={() => handleClick(user)}
             >
               <img
@@ -4085,6 +4100,7 @@ const UserList = ({ onSelectUser, onCloseUserList, hideUserList, onClearChat }) 
             </li>
           ))}
         </ul>
+        )}
 
         {overlayImage && (
           <>

@@ -117,10 +117,6 @@ export const toggleAnonymousChat = (isOpen) => (dispatch) => {
   dispatch({ type: "TOGGLE_ANONYMOUS_CHAT", payload: isOpen });
 };
 
-export const toggleTrendChat = (isOpen) => (dispatch) => {
-  dispatch({ type: "TOGGLE_TREND_CHAT", payload: isOpen });
-};
-
 export const toggleAddContactChat = (isOpen) => (dispatch) => {
   dispatch({ type: "TOGGLE_ADDCONTACT_CHAT", payload: isOpen });
 };

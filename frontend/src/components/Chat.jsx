@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import io from "socket.io-client";
-import { FaPaperclip, FaCheck, FaCheckDouble, FaRupeeSign, FaArrowRight, FaMicrophoneSlash, FaMicrophone, FaLanguage } from "react-icons/fa";
+import { FaPaperclip, FaCheck, FaCheckDouble, FaArrowRight, FaMicrophoneSlash, FaMicrophone, FaLanguage } from "react-icons/fa";
 import { GoDownload } from "react-icons/go";
 import { fetchChats, deleteChat } from "../actions/chatAction";
 import Update from "./Update";
@@ -34,9 +34,7 @@ const Chat = ({ selectedUser, onToggleUserList }) => {
   const imageInputRef = useRef(null);
   const deleteOptionsRef = useRef(null);
   const [showFullView, setShowFullView] = useState(false);
-  const navigate = useNavigate();
-  const [isPaying, setIsPaying] = useState(false);
-  const [hideUserList, setHideUserList] = useState(false);
+  const navigate = useNavigate();  const [hideUserList, setHideUserList] = useState(false);
   // New state to toggle emoji picker
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   // Ref for emoji picker container
@@ -329,56 +327,6 @@ const Chat = ({ selectedUser, onToggleUserList }) => {
       messageInputRef.current?.focus();
     }
   }
-
-
-  const handlePayment = async () => {
-    setIsPaying(true);
-    try {
-      const razorpayScript = await loadRazorpayScript();
-      if (!razorpayScript) {
-        alert("Failed to load Razorpay. Please check your internet connection.");
-        setIsPaying(false);
-        return;
-      }
-      const { data } = await axios.post(API_BASE + "/api/payment", {
-        amount: 100,
-      });
-      const options = {
-        key: "rzp_test_CJUUypRoLbw1c2",
-        amount: data.order.amount,
-        currency: "INR",
-        name: "Chat App",
-        description: "AI Chat Subscription",
-        order_id: data.order.id,
-        handler: function (response) {
-          alert("Payment Successful! Payment ID: " + response.razorpay_payment_id);
-        },
-        theme: { color: "#3399cc" },
-      };
-      const razorpay = new window.Razorpay(options);
-      razorpay.open();
-    } catch (error) {
-      console.error("Payment Error:", error);
-      alert("Payment failed. Try again.");
-    } finally {
-      setIsPaying(false);
-    }
-  };
-
-  const loadRazorpayScript = () => {
-    return new Promise((resolve) => {
-      if (window.Razorpay) {
-        resolve(true);
-        return;
-      }
-      const script = document.createElement("script");
-      script.src = "https://checkout.razorpay.com/v1/checkout.js";
-      script.onload = () => resolve(true);
-      script.onerror = () => resolve(false);
-      document.body.appendChild(script);
-    });
-  };
-
   const openExportModal = () => setShowExportModal(true);
   const closeExportModal = () => {
     setShowExportModal(false);
@@ -987,7 +935,7 @@ const Chat = ({ selectedUser, onToggleUserList }) => {
   return (
     <div className={`w-full sm:w-[100%] h-[100%] p-0 border border-gray-300 rounded-lg bg-gray-100 bg-[url('/background.png')] bg-cover bg-center overflow-hidden relative transition-all duration-300 ${hideUserList ? "" : ""}`}>
       {/* Mobile back arrow to reopen user list */}
-      <div className="md:hidden absolute top-2 left-2 z-20 max-[668px]:top-1 max-[668px]:left-1">
+      <div className="md:hidden fixed top-2 left-2 z-[70] max-[668px]:top-1 max-[668px]:left-1">
         <button
           onClick={() => {
             setHideUserList(false);
@@ -1244,13 +1192,13 @@ const Chat = ({ selectedUser, onToggleUserList }) => {
             sendMessage();
           }
         }}
-        className="bg-white flex flex-row flex-wrap items-center p-2.5 absolute bottom-0 w-full sm:w-[100%]"
+        className="bg-white flex flex-row flex-nowrap items-center gap-1.5 p-2 absolute bottom-0 w-full sm:w-[100%]"
       >
         {/* Emoji Button */}
         <button
           type="button"
           onClick={() => setShowEmojiPicker((s) => !s)}
-          className="text-black rounded-3xl mx-2.5 cursor-pointer max-[500px]:mx-0"
+          className="text-black rounded-3xl px-1 cursor-pointer shrink-0"
           aria-label="Toggle emoji picker"
         >
           <HiOutlineEmojiHappy size={25} />
@@ -1279,7 +1227,7 @@ const Chat = ({ selectedUser, onToggleUserList }) => {
 
         <label
           htmlFor="file-upload"
-          className="inline-block cursor-pointer p-2.5 text-black rounded-md mx-2 mr-5 max-[500px]:mx-1 max-[500px]:p-0 max-[500px]:mr-1"
+          className="inline-block cursor-pointer p-1 text-black rounded-md shrink-0"
         >
           <FaPaperclip size={20} />
         </label>
@@ -1293,14 +1241,14 @@ const Chat = ({ selectedUser, onToggleUserList }) => {
         />
 
         {/* Input container (relative so we can show interim preview) */}
-        <div className="relative flex-grow min-w-0">
+        <div className="relative flex-1 min-w-0">
           <input
             ref={messageInputRef}
             type="text"
             placeholder={listening ? "" : "Message"}
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            className="w-full p-2.5 border border-gray-300 rounded-lg text-sm"
+            className="w-full p-2 border border-gray-300 rounded-lg text-sm"
           />
 
           {/* Interim (live) transcript preview — shown faintly when listening */}
@@ -1312,7 +1260,7 @@ const Chat = ({ selectedUser, onToggleUserList }) => {
         </div>
 
         {/* Microphone and Translate controls group */}
-        <div className="flex items-center gap-2 ml-2.5">
+        <div className="flex items-center gap-1 shrink-0">
           {/* Translate language selector (small) */}
           {/* <select
             value={targetLang}
@@ -1346,7 +1294,7 @@ const Chat = ({ selectedUser, onToggleUserList }) => {
           <button
             type="button"
             onClick={toggleListening}
-            className={`py-2 px-3 rounded-lg flex items-center ${listening ? "bg-red-600 text-white" : "bg-gray-800 text-white"}`}
+            className={`h-10 w-10 rounded-lg flex items-center justify-center ${listening ? "bg-red-600 text-white" : "bg-gray-800 text-white"}`}
             aria-pressed={listening}
             aria-label={listening ? "Stop recording" : "Start recording"}
             title={listening ? "Stop recording" : "Start recording"}
@@ -1354,22 +1302,6 @@ const Chat = ({ selectedUser, onToggleUserList }) => {
             {listening ? <FaMicrophoneSlash size={16} /> : <FaMicrophone size={16} />}
           </button>
         </div>
-
-        {/* Payment button (hidden in editing mode) */}
-        {!editingMessage && (
-          <button
-            type="button"
-            onClick={handlePayment}
-            disabled={isPaying}
-            className="max-[668px]:text-xs ml-2.5 py-2.5 px-3 bg-blue-600 rounded-lg text-white cursor-pointer max-[500px]:px-1.5 max-[500px]:ml-1"
-          >
-            {isPaying ? (
-              <ReactLoading type="spin" color="white" height={16} width={14.5} />
-            ) : (
-              <FaRupeeSign />
-            )}
-          </button>
-        )}
 
         {/* Editing cancel button */}
         {editingMessage && (
@@ -1390,7 +1322,7 @@ const Chat = ({ selectedUser, onToggleUserList }) => {
           <button
             type="submit"
             disabled={!message.trim() && !selectedImage}
-            className={`max-[500px]:px-1 max-[668px]:px-2.5 max-[500px]:mr-0 max-[500px]:ml-1.5 mr-4 ml-2.5 h-9 py-2 px-4 rounded-lg cursor-pointer flex items-center hover:bg-gray-200 transition duration-300 ${(!message.trim() && !selectedImage) ? " text-gray-400" : " text-black"}`}
+            className={`h-10 w-10 rounded-lg cursor-pointer flex items-center justify-center hover:bg-gray-200 transition duration-300 shrink-0 ${(!message.trim() && !selectedImage) ? " text-gray-400" : " text-black"}`}
           >
             <IoCheckmark size={20} />
           </button>
@@ -1398,7 +1330,7 @@ const Chat = ({ selectedUser, onToggleUserList }) => {
           <button
             type="submit"
             disabled={!message.trim() && !selectedImage}
-            className={`max-[500px]:px-1 max-[668px]:px-2.5 max-[500px]:mr-0 max-[500px]:ml-1.5 mr-4 ml-2.5 h-9 py-2 px-4 rounded-lg cursor-pointer transition-colors duration-300 ${(!message.trim() && !selectedImage) ? "bg-green-200 text-gray-400" : "bg-green-600 text-white"}`}
+            className={`h-10 w-10 rounded-lg cursor-pointer flex items-center justify-center transition-colors duration-300 shrink-0 ${(!message.trim() && !selectedImage) ? "bg-green-200 text-gray-400" : "bg-green-600 text-white"}`}
           >
             <span className="max-[668px]:text-xs">
               <LuSendHorizontal />
@@ -1501,6 +1433,7 @@ const Chat = ({ selectedUser, onToggleUserList }) => {
 };
 
 export default Chat;
+
 
 
 

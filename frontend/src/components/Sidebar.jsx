@@ -547,29 +547,24 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { toggleAiChat, toggleAnonymousChat, toggleTrendChat, toggleAddContactChat } from "../actions/chatAction";
 import { BsThreeDotsVertical, BsChatText } from "react-icons/bs";
 import { SiDeepgram } from "react-icons/si";
 import { FiSettings } from "react-icons/fi";
 import { IoCloseOutline } from "react-icons/io5";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import UserDetails from "./UserDetails";
 import { PiChatCircleSlashFill } from "react-icons/pi";
-import { TfiStatsUp } from "react-icons/tfi";
 import { LuContact } from "react-icons/lu";
 import { GrUserAdmin } from "react-icons/gr";
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 const Sidebar = () => {
   const [loggedInUser, setLoggedInUser] = useState(null);
+  const [loadingUser, setLoadingUser] = useState(true);
   const [showOptions, setShowOptions] = useState(false);
   const optionsRef = useRef(null);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const isAiChatOpen = useSelector((state) => state.chat.isAiChatOpen);
-  const isAnonymousChatOpen = useSelector((state) => state.chat.isAnonymousChatOpen);
-  const isTrendChatOpen = useSelector((state) => state.chat.isTrendChatOpen);
+  const location = useLocation();
   const [selectedUser, setSelectedUser] = useState(null);
   const [showUserList, setShowUserList] = useState(true);
   const [dropdownStyle, setDropdownStyle] = useState({});
@@ -578,9 +573,22 @@ const Sidebar = () => {
   const [activeMenu, setActiveMenu] = useState("chat");
 
   useEffect(() => {
+    const p = location.pathname.toLowerCase();
+    if (p === "/aichat") setActiveMenu("ai");
+    else if (p === "/privatechat") setActiveMenu("anonymous");
+    else if (p === "/newcontact") setActiveMenu("addcontact");
+    else if (p === "/admin-dashboard") setActiveMenu("admindashboard");
+    else setActiveMenu("chat");
+  }, [location.pathname]);
+
+  useEffect(() => {
     const fetchLoggedInUser = async () => {
       try {
         const storedUsername = localStorage.getItem("username");
+        if (!storedUsername) {
+          setLoadingUser(false);
+          return;
+        }
         const response = await fetch(
           `${API_BASE}/api/registerUser?username=${storedUsername}`
         );
@@ -590,6 +598,8 @@ const Sidebar = () => {
         setLoggedInUser(data.user);
       } catch (error) {
         console.error("Error fetching logged-in user:", error.message);
+      } finally {
+        setLoadingUser(false);
       }
     };
     fetchLoggedInUser();
@@ -597,10 +607,7 @@ const Sidebar = () => {
 
   // When AI button is clicked: open AI chat and set active menu to "ai"
   const handleAiButtonClick = () => {
-    dispatch(toggleAiChat(true));
-    dispatch(toggleAnonymousChat(false));
-    dispatch(toggleTrendChat(false));
-    dispatch(toggleAddContactChat(false));
+    navigate("/aichat");
     setActiveMenu("ai");
   };
 
@@ -608,51 +615,24 @@ const Sidebar = () => {
   const handleChatButtonClick = () => {
     // Clear query parameters by navigating to the base "/chat" route
     navigate("/chat");
-    dispatch(toggleAiChat(false));
-    dispatch(toggleAnonymousChat(false));
-    dispatch(toggleTrendChat(false));
-    dispatch(toggleAddContactChat(false));
     setActiveMenu("chat");
   };
 
   // When chat button is clicked: close AI chat and set active menu to "chat"
   const handleAnonymousButtonClick = () => {
     // Clear query parameters by navigating to the base "/chat" route
-    navigate("/chat");
-    dispatch(toggleAnonymousChat(true));
-    dispatch(toggleTrendChat(false));
-    dispatch(toggleAiChat(false));
-    dispatch(toggleAddContactChat(false));
+    navigate("/privatechat");
     setActiveMenu("anonymous");
-  };
-
-  // When chat button is clicked: close AI chat and set active menu to "chat"
-  const handleTrendButtonClick = () => {
-    // Clear query parameters by navigating to the base "/chat" route
-    navigate("/chat");
-    dispatch(toggleTrendChat(true));
-    dispatch(toggleAiChat(false));
-    dispatch(toggleAnonymousChat(false));
-    dispatch(toggleAddContactChat(false));
-    setActiveMenu("trend");
   };
 
   // When chat button is clicked: close AI chat and set active menu to "chat"
   const handleAddContactButtonClick = () => {
     // Clear query parameters by navigating to the base "/chat" route
-    navigate("/chat");
-    dispatch(toggleAddContactChat(true));
-    dispatch(toggleTrendChat(false));
-    dispatch(toggleAiChat(false));
-    dispatch(toggleAnonymousChat(false));
+    navigate("/newcontact");
     setActiveMenu("addcontact");
   };
 
   const handleOpenAdminButtonClick = () => {
-    dispatch(toggleAddContactChat(false));
-    dispatch(toggleTrendChat(false));
-    dispatch(toggleAiChat(false));
-    dispatch(toggleAnonymousChat(false));
     setActiveMenu("admindashboard");
     navigate("/admin-dashboard");
   };
@@ -702,75 +682,68 @@ const Sidebar = () => {
 
   return (
     <>
-      <div className="w-full h-full flex flex-col bg-green-50 p-4 items-center">
+      <div className="w-full h-full flex flex-col bg-green-50 p-4 items-center overflow-x-hidden">
+        {loadingUser && (
+          <div className="w-full flex items-center justify-center py-4">
+            <div className="h-6 w-6 rounded-full border-2 border-green-600 border-t-transparent animate-spin" />
+          </div>
+        )}
         {/* Chat button - active when activeMenu is "chat" */}
-        <div className="flex justify-start mb-8">
+        <div className="flex justify-start mb-4 w-full">
           {loggedInUser && (
             <button
               onClick={handleChatButtonClick}
-              className={`p-2 rounded cursor-pointer hover:bg-green-500 ${activeMenu === "chat" ? "bg-green-600 text-white" : "bg-green-300 text-black"
+              className={`mx-auto w-[92%] max-w-sm md:w-14 md:h-14 md:max-w-none min-h-12 p-2 px-4 md:p-0 rounded cursor-pointer hover:bg-green-500 flex items-center justify-start md:justify-center gap-3 ${activeMenu === "chat" ? "bg-green-600 text-white" : "bg-green-300 text-black"
                 }`}
               title="Chat"
             >
               <BsChatText size={20} />
+              <span className="md:hidden font-semibold">Chat</span>
             </button>
           )}
         </div>
         {/* AI button - active when activeMenu is "ai" */}
-        <div className="flex justify-start">
+        <div className="flex justify-start w-full mb-4">
           {loggedInUser && (
             <button
               onClick={handleAiButtonClick}
-              className={`p-2 rounded mb-8 cursor-pointer hover:bg-green-500 ${activeMenu === "ai" ? "bg-green-600 text-white" : "bg-green-300 text-black"
+              className={`mx-auto w-[92%] max-w-sm md:w-14 md:h-14 md:max-w-none min-h-12 p-2 px-4 md:p-0 rounded cursor-pointer hover:bg-green-500 flex items-center justify-start md:justify-center gap-3 ${activeMenu === "ai" ? "bg-green-600 text-white" : "bg-green-300 text-black"
                 }`}
               title="AI Chat"
             >
               {<SiDeepgram size={20} />}
+              <span className="md:hidden font-semibold">AI Chat</span>
               {/* {isAiChatOpen ? <IoCloseOutline size={20} /> : <SiDeepgram size={20} />} */}
             </button>
           )}
         </div>
         {/* when activeMenu is "anonymous" */}
-        <div className="flex justify-start">
+        <div className="flex justify-start w-full mb-4">
           {loggedInUser && (
             <button
               onClick={handleAnonymousButtonClick}
-              className={`p-2 rounded mb-8 cursor-pointer hover:bg-green-500 ${activeMenu === "anonymous" ? "bg-green-600 text-white" : "bg-green-300 text-black"
+              className={`mx-auto w-[92%] max-w-sm md:w-14 md:h-14 md:max-w-none min-h-12 p-2 px-4 md:p-0 rounded cursor-pointer hover:bg-green-500 flex items-center justify-start md:justify-center gap-3 ${activeMenu === "anonymous" ? "bg-green-600 text-white" : "bg-green-300 text-black"
                 }`}
               title="Private Chat"
             >
               {<PiChatCircleSlashFill size={20} />}
+              <span className="md:hidden font-semibold">Private Chat</span>
               {/* {isAiChatOpen ? <IoCloseOutline size={20} /> : <SiDeepgram size={20} />} */}
             </button>
           )}
 
         </div>
-        {/*when activeMenu is "trend" */}
-        <div className="flex justify-start">
-          {loggedInUser && (
-            <button
-              onClick={handleTrendButtonClick}
-              className={`p-2 rounded mb-8 cursor-pointer hover:bg-green-500 ${activeMenu === "trend" ? "bg-green-600 text-white" : "bg-green-300 text-black"
-                }`}
-              title="Trends"
-            >
-              {<TfiStatsUp size={20} />}
-              {/* {isAiChatOpen ? <IoCloseOutline size={20} /> : <SiDeepgram size={20} />} */}
-            </button>
-          )}
-
-        </div>
-
         {/*when add  is contact */}
-        <div className="flex justify-start">
+        <div className="flex justify-start w-full mb-4">
           {loggedInUser && (
             <button
               onClick={handleAddContactButtonClick}
-              className={`p-2 rounded mb-8 cursor-pointer hover:bg-green-500 ${activeMenu === "addcontact" ? "bg-green-600 text-white" : "bg-green-300 text-black"
+              className={`mx-auto w-[92%] max-w-sm md:w-14 md:h-14 md:max-w-none min-h-12 p-2 px-4 md:p-0 rounded cursor-pointer hover:bg-green-500 flex items-center justify-start md:justify-center gap-3 ${activeMenu === "addcontact" ? "bg-green-600 text-white" : "bg-green-300 text-black"
                 }`}
               title="Add Contact"
             >
               {<LuContact size={20} />}
+              <span className="md:hidden font-semibold">Add Contact</span>
               {/* {isAiChatOpen ? <IoCloseOutline size={20} /> : <SiDeepgram size={20} />} */}
             </button>
           )}
@@ -791,27 +764,33 @@ const Sidebar = () => {
         </div>
 
         {/* User profile and logout section */}
-        <div className="flex flex-col items-center justify-center mt-auto gap-5">
+        <div className="flex flex-col items-center justify-center mt-auto gap-4 w-full">
           {loggedInUser && (
             <>
-              <div className="relative" ref={logoutButtonRef}>
+              <div className="relative w-[92%] max-w-sm md:w-auto md:max-w-none mx-auto" ref={logoutButtonRef}>
                 <div
                   id="logout"
                   onClick={toggleDropdown}
-                  className="cursor-pointer mb-2"
+                  className="cursor-pointer mb-1 w-full min-h-12 p-2 px-4 md:w-14 md:h-14 md:p-0 rounded bg-green-300 hover:bg-green-500 flex items-center justify-start md:justify-center gap-3"
                   title="Setting"
                 >
                   <FiSettings size={27} />
+                  <span className="md:hidden font-semibold">Settings</span>
                   {/* <BsThreeDotsVertical size={20} /> */}
                 </div>
               </div>
-              <img
+              <button
                 onClick={handleProfileImageClick}
-                src={`${API_BASE}/${loggedInUser.profilePicture}`}
-                alt="Profile"
-                className="h-10 w-10 rounded-full mb-2 cursor-pointer object-cover"
+                className="w-[92%] max-w-sm md:w-14 md:h-14 md:max-w-none min-h-12 p-2 px-4 md:p-0 rounded bg-green-300 hover:bg-green-500 flex items-center justify-start md:justify-center gap-3 mb-1 mx-auto cursor-pointer"
                 title="Profile"
-              />
+              >
+                <img
+                  src={`${API_BASE}/${loggedInUser.profilePicture}`}
+                  alt="Profile"
+                  className="h-8 w-8 rounded-full object-cover"
+                />
+                <span className="md:hidden font-semibold">Profile</span>
+              </button>
             </>
           )}
         </div>

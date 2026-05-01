@@ -5,7 +5,6 @@ const initialState = {
   error: null,
   isAiChatOpen: false,
   isAnonymousChatOpen: false,
-  isTrendChatOpen: false,
   isAddContactChatOpen: false,
 };
 
@@ -82,8 +81,6 @@ const chatReducer = (state = initialState, action) => {
       return { ...state, isAiChatOpen: action.payload };
     case "TOGGLE_ANONYMOUS_CHAT":
       return { ...state, isAnonymousChatOpen: action.payload };
-    case "TOGGLE_TREND_CHAT":
-      return { ...state, isTrendChatOpen: action.payload };
     case "TOGGLE_ADDCONTACT_CHAT":
       return { ...state, isAddContactChatOpen: action.payload };
       case "EDIT_CHAT":
