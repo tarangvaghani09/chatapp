@@ -70,6 +70,13 @@ const Chat = ({ selectedUser, onToggleUserList }) => {
 
   const [showShareModal, setShowShareModal] = useState(false);
   const [shareChat, setShareChat] = useState({ message: "", image: null });
+  const [confirmDialog, setConfirmDialog] = useState({
+    open: false,
+    title: "",
+    message: "",
+    actionType: null,
+    payload: null,
+  });
 
 
   // When a new user is selected (from the merged contacts list), hide the user list
@@ -178,6 +185,33 @@ const Chat = ({ selectedUser, onToggleUserList }) => {
     } catch (error) {
       console.error("Error unblocking user:", error);
     }
+  };
+
+  const openConfirm = (title, message, actionType, payload = null) => {
+    setShowDeleteOptions(false);
+    setConfirmDialog({ open: true, title, message, actionType, payload });
+  };
+
+  const closeConfirm = () => {
+    setConfirmDialog({
+      open: false,
+      title: "",
+      message: "",
+      actionType: null,
+      payload: null,
+    });
+  };
+
+  const runConfirmedAction = async () => {
+    const { actionType, payload } = confirmDialog;
+    if (actionType === "block") {
+      await handleBlockUser();
+    } else if (actionType === "unblock") {
+      await handleUnblockUser();
+    } else if (actionType === "delete") {
+      handleDelete(payload.id, payload.deleteForBoth);
+    }
+    closeConfirm();
   };
 
   // Initialize Speech Recognition
@@ -994,11 +1028,11 @@ const Chat = ({ selectedUser, onToggleUserList }) => {
           </h3>
           <div className="flex justify-end">
             {isBlocked ? (
-              <button onClick={handleUnblockUser} className="bg-gray-100 text-black text-sm max-[668px]:text-xs py-2 max-[668px]:px-2 px-4 rounded-md cursor-pointer border-none transition duration-300 ease-in-out hover:bg-gray-200 hover:scale-105 font-bold">
+              <button onClick={() => openConfirm("Confirm Unblock", "Do you want to unblock this user?", "unblock")} className="bg-gray-100 text-black text-sm max-[668px]:text-xs py-2 max-[668px]:px-2 px-4 rounded-md cursor-pointer border-none transition duration-300 ease-in-out hover:bg-gray-200 hover:scale-105 font-bold">
                 Unblock
               </button>
             ) : (
-              <button onClick={handleBlockUser} className="bg-gray-100 text-black text-sm max-[668px]:text-xs py-2 max-[668px]:px-2 px-4 rounded-md cursor-pointer border-none transition duration-300 ease-in-out hover:bg-gray-200 hover:scale-105 font-bold">
+              <button onClick={() => openConfirm("Confirm Block", "Do you want to block this user?", "block")} className="bg-gray-100 text-black text-sm max-[668px]:text-xs py-2 max-[668px]:px-2 px-4 rounded-md cursor-pointer border-none transition duration-300 ease-in-out hover:bg-gray-200 hover:scale-105 font-bold">
                 Block
               </button>
             )}
@@ -1117,14 +1151,28 @@ const Chat = ({ selectedUser, onToggleUserList }) => {
                     </button>
                   )}
                   <button
-                    onClick={() => handleDelete(chat._id, false)}
+                    onClick={() =>
+                      openConfirm(
+                        "Confirm Delete",
+                        "Do you want to delete this message for you?",
+                        "delete",
+                        { id: chat._id, deleteForBoth: false }
+                      )
+                    }
                     className="px-3 py-1 text-left hover:bg-gray-100 text-xs cursor-pointer"
                   >
                     Delete for You
                   </button>
                   {isSender && !chat.deletedForEveryone && (Date.now() - new Date(chat.timestamp)) < 60 * 60 * 1000 && (
                     <button
-                      onClick={() => handleDelete(chat._id, true)}
+                      onClick={() =>
+                        openConfirm(
+                          "Confirm Delete",
+                          "Do you want to delete this message for everyone?",
+                          "delete",
+                          { id: chat._id, deleteForBoth: true }
+                        )
+                      }
                       className="px-3 py-1 text-left hover:bg-gray-100 text-xs cursor-pointer"
                     >
                       Delete for Everyone
@@ -1345,6 +1393,29 @@ const Chat = ({ selectedUser, onToggleUserList }) => {
           <img src={overlayImage} alt="Full View" className="max-w-[90%] max-h-[90%] object-contain" />
           <div className="absolute right-5 top-5 text-white" onClick={closeOverlay}>
             <AiOutlineClose size={30} />
+          </div>
+        </div>
+      )}
+
+      {confirmDialog.open && (
+        <div className="fixed inset-0 bg-black/40 z-[80] flex items-center justify-center px-4">
+          <div className="bg-white rounded-lg shadow-xl w-full max-w-sm p-4">
+            <h3 className="text-base font-semibold text-gray-900">{confirmDialog.title}</h3>
+            <p className="text-sm text-gray-600 mt-2">{confirmDialog.message}</p>
+            <div className="flex justify-end gap-2 mt-4">
+              <button
+                onClick={closeConfirm}
+                className="px-3 py-1.5 rounded border border-gray-300 text-gray-700 hover:bg-gray-100 cursor-pointer"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={runConfirmedAction}
+                className="px-3 py-1.5 rounded bg-green-600 text-white hover:bg-green-700 cursor-pointer"
+              >
+                Yes
+              </button>
+            </div>
           </div>
         </div>
       )}
