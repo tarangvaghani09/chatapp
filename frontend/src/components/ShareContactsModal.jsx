@@ -325,12 +325,14 @@ export default function ShareContactsModal({
     const [allContacts, setAllContacts] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedPhones, setSelectedPhones] = useState([]);
+    const [loadingContacts, setLoadingContacts] = useState(false);
 
     // Load & merge saved + unknown contacts when modal opens
     useEffect(() => {
         if (!isOpen) return;
 
         const loadContacts = async () => {
+            setLoadingContacts(true);
             try {
                 const owner = localStorage.getItem("username");
 
@@ -382,6 +384,8 @@ export default function ShareContactsModal({
                 setSelectedPhones([]);
             } catch (err) {
                 console.error("Failed to load contacts:", err);
+            } finally {
+                setLoadingContacts(false);
             }
         };
 
@@ -469,7 +473,12 @@ export default function ShareContactsModal({
     [&::-webkit-scrollbar-track]:bg-gray-200
     [&::-webkit-scrollbar-thumb]:bg-green-50
     [&::-webkit-scrollbar-thumb]:rounded-full">
-                    {filtered.length > 0 ? (
+                    {loadingContacts ? (
+                        <div className="flex items-center gap-2 text-sm text-gray-500">
+                            <div className="h-4 w-4 rounded-full border-2 border-green-600 border-t-transparent animate-spin" />
+                            <span>Loading contacts...</span>
+                        </div>
+                    ) : filtered.length > 0 ? (
                         filtered.map((c) => (
                             <label
                                 key={c.phone}

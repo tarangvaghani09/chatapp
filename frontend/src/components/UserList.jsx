@@ -4055,6 +4055,9 @@ const UserList = ({ onSelectUser, onCloseUserList, hideUserList, onClearChat }) 
         ) : (
         <ul className="divide-y divide-gray-200">
           {filtered.map((user) => (
+            (() => {
+              const hasLatest = Object.prototype.hasOwnProperty.call(latestMessages, user.phone);
+              return (
             <li
               key={user.phone}
               className={`flex items-center p-3 hover:bg-green-100 transition-colors cursor-pointer ${activeIndex === user.phone ? "bg-green-200" : ""}`}
@@ -4075,14 +4078,24 @@ const UserList = ({ onSelectUser, onCloseUserList, hideUserList, onClearChat }) 
                       ? "You"
                       : user.contactUsername || user.username}
                   </p>
-                  <span className="text-xs text-gray-500">
-                    {latestMessages[user.phone] ? new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : ""}
-                  </span>
+                  {hasLatest ? (
+                    <span className="text-xs text-gray-500">
+                      {latestMessages[user.phone]
+                        ? new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+                        : ""}
+                    </span>
+                  ) : (
+                    <span className="text-xs text-gray-400 animate-pulse">...</span>
+                  )}
                 </div>
-                <p className="text-sm text-gray-600 truncate">
-                  {latestMessages[user.phone]?.slice(0, 25) || ""}
-                  {latestMessages[user.phone]?.length > 25 && "..."}
-                </p>
+                {hasLatest ? (
+                  <p className="text-sm text-gray-600 truncate">
+                    {latestMessages[user.phone]?.slice(0, 25) || ""}
+                    {latestMessages[user.phone]?.length > 25 && "..."}
+                  </p>
+                ) : (
+                  <p className="text-sm text-gray-400 animate-pulse truncate">Loading latest message...</p>
+                )}
               </div>
               {unreadMessages[user.phone] > 0 && (
                 <span className="ml-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full">
@@ -4101,6 +4114,8 @@ const UserList = ({ onSelectUser, onCloseUserList, hideUserList, onClearChat }) 
                 </button>
               )}
             </li>
+              );
+            })()
           ))}
         </ul>
         )}
