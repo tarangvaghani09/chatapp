@@ -4022,8 +4022,8 @@ const UserList = ({ onSelectUser, onCloseUserList, hideUserList, onClearChat }) 
     <>
       <div className={`w-full h-full bg-[#f4faf6] overflow-y-auto ${hideUserList ? "hidden" : ""}`}>
         {/* Header */}
-        <div className="sticky top-0 z-40 bg-green-600 p-4 pl-16 md:pl-4 shadow-md flex justify-between items-center">
-          <h2 className="text-xl font-semibold text-white">Chats</h2>
+        <div className="sticky top-0 z-40 bg-white p-4 pl-16 md:pl-4 shadow-md flex justify-between items-center">
+          <h2 className="text-xl font-semibold text-black">Chats</h2>
           {/* <button
             onClick={onCloseUserList}
             className="text-gray-600 hover:text-gray-800 transition-colors"
