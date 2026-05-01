@@ -1015,7 +1015,7 @@ const Chat = ({ selectedUser, onToggleUserList }) => {
         </div>
       </div>
 
-      <div className="h-[60vh] sm:h-[70vh] md:h-[76vh] overflow-y-auto mb-5 pb-24 md:pb-4 flex flex-col pl-3 sm:pl-5 pr-1 mt-[60px] sm:mt-[70px]" ref={chatContainerRef}>
+      <div className="h-[calc(100dvh-190px)] sm:h-[calc(100dvh-210px)] md:h-[76vh] overflow-y-auto mb-0 pb-2 md:pb-4 flex flex-col pl-3 sm:pl-5 pr-1 mt-[60px] sm:mt-[70px]" ref={chatContainerRef}>
         {filteredChats.map((chat) => {
           const loggedInUser = localStorage.getItem("username");
           const isSender = chat.sender === loggedInUser;
@@ -1098,10 +1098,10 @@ const Chat = ({ selectedUser, onToggleUserList }) => {
                 <div
                   ref={deleteOptionsRef}
                   className={`
-            flex flex-col absolute top-full py-1
+            flex flex-col absolute bottom-full py-1
             ${isSender ? "right-0" : "left-0"}
             bg-white border border-gray-300 rounded-lg
-            z-50 mt-1 w-[150px]
+            z-50 mb-1 w-[150px]
           `}
                 >
                   {!chat.deletedForEveryone && (
