@@ -73,6 +73,9 @@ import store from "./store";
 import ProtectedRoute from "./components/ProtectedRoute";
 import LandingPage from "./components/LandingPage";
 import AdminDashboard from "./components/AdminDashboard";
+import PrivacyPolicy from "./components/PrivacyPolicy";
+import Terms from "./components/Terms";
+import DataDeletion from "./components/DataDeletion";
 // import "./App.css";
 
 function App() {
@@ -83,6 +86,9 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<LandingPage />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/data-deletion" element={<DataDeletion />} />
 
           {/* Admin route protected with role check */}
           <Route
